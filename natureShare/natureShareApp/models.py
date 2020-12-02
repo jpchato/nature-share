@@ -5,8 +5,8 @@ from django.contrib.auth import get_user_model
 
 class Organism(models.Model):
     # picture = 
-    name = models.CharField(max_length=255, blank=True, null=True)
-    # location = 
+    name = models.CharField(max_length=255, required = True)
+    # location = https://django-geoposition.readthedocs.io/en/latest/
     edibility = models.BooleanField(blank=True, null=True)
     class Ecosystem(models.TextChoices):
         TEMPERATE_RAINFOREST = 'Temperate Rainforest',
