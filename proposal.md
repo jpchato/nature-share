@@ -26,11 +26,14 @@
 * Ecosystem/Environment
     * optional
     * drop down??? list a bunch of ecosystems and an other option with an associated text field??? ask sarah
-* Time
-    * optional
-    * time/date field
+
 * Weather
     * optional
+
+* Date
+    * Time
+        * optional
+        * time/date field
 
 * Page where you can see a list of names and locations
 * Page for each item in the model with all the associated data
@@ -41,6 +44,7 @@
 #### What data will you need to store as part of your application? These should be specific nouns, collections of information that serve a collective purpose. Examples might be 'User', 'Book', 'ImageSet'.
 * Organism
 * Ecosystem --- foreignkey????
+* Date
 
 # Schedule
 #### Here you'll want to come up with some (very rough) estimates of the timeframe for each section. State specifically which steps you'll take in the implementation. This section should also include work you're planning to do after the capstone is finished.
@@ -49,3 +53,7 @@
 * Set up Models
 * Set up ability for users to interact with DB
 * Style
+
+# Stretch Goals
+* Implement Date model
+* Implement map using lat/lon data
