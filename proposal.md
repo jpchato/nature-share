@@ -4,7 +4,7 @@
 #### What are the major features of your web application? What problem is it attempting to solve? What libraries or frameworks will you use?
 * Allows users to share organisms(trees, plants, shrubs, animals) they find in nature: pictures, names, locations, edibility, ecosystem/environment , and time.
 * Creates an app where people can share their love of nature without the interference of non-nature related content.
-* Django
+* Django/Pillow
 
 # Functionality
 #### Walk through the application from the user's perspective. What will they see on each page? What can they input and click and see? How will their actions correspond to events on the back-end?
@@ -18,7 +18,8 @@
     * text field
 * Locations
     * mandatory
-    * text field --- or lat/lon??? Give users a choice about how they want to share the info. Ask sarah
+    * lat/lon --- API button to let users share their lat/lon
+        * getCurrentPosition() --- HTML geolocation
 * Edibility
     * optional
     * drop down menu --- yes/no/unknown
@@ -28,6 +29,9 @@
 * Time
     * optional
     * time/date field
+* Weather
+    * optional
+
 * Page where you can see a list of names and locations
 * Page for each item in the model with all the associated data
 
@@ -36,6 +40,7 @@
 # Data Model
 #### What data will you need to store as part of your application? These should be specific nouns, collections of information that serve a collective purpose. Examples might be 'User', 'Book', 'ImageSet'.
 * Organism
+* Ecosystem --- foreignkey????
 
 # Schedule
 #### Here you'll want to come up with some (very rough) estimates of the timeframe for each section. State specifically which steps you'll take in the implementation. This section should also include work you're planning to do after the capstone is finished.
