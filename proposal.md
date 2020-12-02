@@ -57,3 +57,4 @@
 # Stretch Goals
 * Implement Date model
 * Implement map using lat/lon data
+* optional field for scientifc name --- api call for basic facts about that species
