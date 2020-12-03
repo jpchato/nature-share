@@ -1,7 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import Organism
 from .forms import *
+from django.views.generic import TemplateView, ListView
+from django.views.generic.detail import DetailView
+from django.views import generic
 
 # Create your views here.
 
@@ -28,3 +31,13 @@ def display_images(request):
         plural_organism = Organism.objects.all()
         # return render((request, 'natureShareApp/images.html', {'organism_images' : plural_organism}))
         return render(request, 'natureShareApp/images.html', {'organism_images' : plural_organism})
+
+# def detail_view(self, request, primary_key):
+#     # try:
+#     organism = Organism.objects.get(pk=primary_key)
+#     # except Organism.DoesNotExist:
+#     #     raise Http404('Organism does not exist')
+#     return render(request, 'natureShareApp/organism_detail.html', context={'organism' : organism})
+    
+class OrganismDetailView(generic.DetailView):
+    model = Organism

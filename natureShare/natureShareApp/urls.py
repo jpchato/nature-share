@@ -8,7 +8,9 @@ from .views import *
 urlpatterns = [
     path('', views.home, name='home'),
     path('success', success, name = 'success'),
-    path('organism_images', views.display_images, name = 'organism_images')
+    path('organism_images', views.display_images, name = 'organism_images'),
+    # path('detail/<int:pk>', views.detail_view, name='detail_view'),
+    path('<int:pk>', views.OrganismDetailView.as_view(), name='organism-detail')
 ]
 
 if settings.DEBUG:

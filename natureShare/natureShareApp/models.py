@@ -20,7 +20,9 @@ class Organism(models.Model):
         TAIGA = 'Taiga',
         TUNDRA = 'Tundra',
         CHAPARRAL = 'Chaparral',
-        OCEAN = 'Ocean'
+        OCEAN = 'Ocean',
+        UNKNOWN = 'Unknown',
+        OTHER = 'Other'
     ecosystem = models.CharField(
         choices = Ecosystem.choices,
         blank = True,

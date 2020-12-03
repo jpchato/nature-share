@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'natureShareApp/organism_detail.css' %}">
+<div>
+    <h1>{{ organism.name }}</h1>
+    <img src="{{ organism.picture.url }}" /> 
+    <p>edible: {{ organism.edibility }}</p>
+    <p>ecosystem: {{ organism.ecosystem }}</p>
+    <p>weather: {{ organism.weather }}</p>
+    <p>date: {{ organism.date }}</p>
+</div>
+
+{% endblock %}

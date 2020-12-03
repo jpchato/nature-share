@@ -1,0 +1,35 @@
+/* path 'natureShareApp/images_style.css' */
+
+html {
+    background-color: #19270d;
+    color: #818c3c;
+}
+
+img {
+    height: 100px;
+    width: 100px;
+}
+
+header{
+    text-align: center;
+    font-size: 50px;
+}
+
+nav {
+    text-align: center;
+}
+
+footer{
+    text-align: center;
+}
+
+a {
+    color: #72601b;
+}
+
+div {
+    text-align: center;
+    border: solid 1px #72601b;
+    width: 25%;
+    margin: auto;
+}
