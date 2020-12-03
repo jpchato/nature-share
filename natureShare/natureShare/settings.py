@@ -121,3 +121,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+# Images: https://www.geeksforgeeks.org/python-uploading-images-in-django/
+# MEDIA_ROOT is for server path to store files in the computer.
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_URL is the reference URL for browser to access the files over Http.
+MEDIA_URL = '/media/'

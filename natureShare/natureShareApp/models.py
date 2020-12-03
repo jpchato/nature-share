@@ -5,7 +5,7 @@ from datetime import datetime
 # Create your models here.
 
 class Organism(models.Model):
-    # picture = 
+    picture = models.ImageField(upload_to='images/', default = None)
     name = models.CharField(
         max_length=255, 
         blank = False
@@ -45,3 +45,6 @@ class Organism(models.Model):
         blank = True, 
         default=datetime.now
         )
+
+    def __str__(self):
+        return self.name
