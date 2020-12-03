@@ -1,11 +1,15 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from datetime import datetime
 
 # Create your models here.
 
 class Organism(models.Model):
     # picture = 
-    name = models.CharField(max_length=255, required = True)
+    name = models.CharField(
+        max_length=255, 
+        blank = False
+        )
     # location = https://django-geoposition.readthedocs.io/en/latest/
     edibility = models.BooleanField(blank=True, null=True)
     class Ecosystem(models.TextChoices):
@@ -20,7 +24,24 @@ class Organism(models.Model):
     ecosystem = models.CharField(
         choices = Ecosystem.choices,
         blank = True,
-        null = True
+        null = True,
+        max_length = 255
     )
-    # weather = 
-    # date = 
+    class Weather(models.TextChoices):
+        SUNNY = 'Sunny',
+        CLOUDY = 'Cloudy',
+        RAINY = 'Rainy',
+        WINDY = 'Windy',
+        SNOWY = 'Snowy',
+        OTHER = 'Other'
+    weather = models.CharField(
+        choices = Weather.choices,
+        blank = True,
+        null = True,
+        max_length = 255
+    )
+    date = models.DateTimeField(
+        null = False, 
+        blank = True, 
+        default=datetime.now
+        )
