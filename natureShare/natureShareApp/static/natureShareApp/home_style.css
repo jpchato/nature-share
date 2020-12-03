@@ -1,0 +1,31 @@
+/* path 'natureShareApp/home_style.css' */
+/* colors https://www.color-hex.com/color-palette/7321 */
+
+html {
+    background-color: #19270d;
+    color: #818c3c;
+}
+
+header{
+    text-align: center;
+    font-size: 50px;
+}
+
+nav {
+    text-align: center;
+}
+
+footer{
+    text-align: center;
+}
+
+a {
+    color: #72601b;
+}
+
+form {
+    text-align: left;
+    border: solid 1px #72601b;
+    width: 25%;
+    margin: auto;
+}

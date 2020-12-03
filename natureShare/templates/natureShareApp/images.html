@@ -1,3 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'natureShareApp/images_style.css' %}">
+
 <!DOCTYPE html> 
 <html lang="en"> 
 <head> 
@@ -12,9 +19,12 @@
     {% for organism in organism_images %} 
             <div> 
                     {{ organism.name }} 
-                     <img src="{{ organism.picture.url }}" style="width: 500px; height: 500px; float: left; margin-right: 10px;"/> 
+                     <img src="{{ organism.picture.url }}" /> 
             </div> 
     {% endfor %} 
   
 </body> 
 </html>
+
+<!-- https://www.geeksforgeeks.org/python-uploading-images-in-django/ -->
+{% endblock %}

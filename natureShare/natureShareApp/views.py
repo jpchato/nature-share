@@ -11,7 +11,9 @@ def home(request):
 
         if form.is_valid():
             form.save()
-            return redirect('success')
+            # return redirect('success')
+            plural_organism = Organism.objects.all()
+            return render(request, 'natureShareApp/images.html', {'organism_images' : plural_organism})
     
     else:
         form = OrganismForm()
@@ -20,6 +22,7 @@ def home(request):
 def success(request):
     return HttpResponse('IT WORKED')
 
+# https://www.geeksforgeeks.org/python-uploading-images-in-django/
 def display_images(request):
     if request.method == 'GET':
         plural_organism = Organism.objects.all()
