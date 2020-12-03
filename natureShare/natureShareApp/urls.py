@@ -7,7 +7,8 @@ from .views import *
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('success', success, name = 'success')
+    path('success', success, name = 'success'),
+    path('organism_images', views.display_images, name = 'organism_images')
 ]
 
 if settings.DEBUG:

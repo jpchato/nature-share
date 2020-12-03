@@ -19,3 +19,9 @@ def home(request):
 
 def success(request):
     return HttpResponse('IT WORKED')
+
+def display_images(request):
+    if request.method == 'GET':
+        plural_organism = Organism.objects.all()
+        # return render((request, 'natureShareApp/images.html', {'organism_images' : plural_organism}))
+        return render(request, 'natureShareApp/images.html', {'organism_images' : plural_organism})

@@ -1,0 +1,20 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <title>Organism Images</title> 
+  
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+     
+</head> 
+<body> 
+  
+    {% for organism in organism_images %} 
+            <div> 
+                    {{ organism.name }} 
+                     <img src="{{ organism.picture.url }}" style="width: 500px; height: 500px; float: left; margin-right: 10px;"/> 
+            </div> 
+    {% endfor %} 
+  
+</body> 
+</html>
