@@ -18,8 +18,8 @@
   
     {% for organism in organism_images %} 
             <div> 
-                    {{ organism.name }} 
-                     <img src="{{ organism.picture.url }}" /> 
+                <a href="http://127.0.0.1:8000/{{organism.id}}">{{ organism.name }} </a><br>
+                <img src="{{ organism.picture.url }}" /> 
             </div> 
     {% endfor %} 
   
