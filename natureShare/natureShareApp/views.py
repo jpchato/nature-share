@@ -5,6 +5,8 @@ from .forms import *
 from django.views.generic import TemplateView, ListView
 from django.views.generic.detail import DetailView
 from django.views import generic
+from django.db.models import Q
+
 
 # Create your views here.
 
@@ -41,3 +43,14 @@ def display_images(request):
     
 class OrganismDetailView(generic.DetailView):
     model = Organism
+
+class SearchResultsView(ListView):
+    model = Organism
+    template_name = 'search_results.html'
+
+    def get_queryset(self): 
+        query = self.request.GET.get('q')
+        object_list = Organism.objects.filter(
+            Q(name__icontains=query) | Q(state__icontains=query)
+        )
+        return object_list
