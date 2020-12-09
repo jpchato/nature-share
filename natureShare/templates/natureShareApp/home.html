@@ -19,6 +19,9 @@
         <button type="submit">Upload</button> 
     </form> 
 </body> 
+<form action="{% url 'search_results' %}" method="get">
+    <input name="q" type="text" placeholder="Search by ecosystem type">
+</form>
 </html> 
 
 {% endblock %}

@@ -46,11 +46,9 @@ class OrganismDetailView(generic.DetailView):
 
 class SearchResultsView(ListView):
     model = Organism
-    template_name = 'search_results.html'
-
-    def get_queryset(self): 
+    template_name = 'natureShareApp/search_results.html'
+    
+    def get_queryset(self):
         query = self.request.GET.get('q')
-        object_list = Organism.objects.filter(
-            Q(name__icontains=query) | Q(state__icontains=query)
-        )
+        object_list = Organism.objects.filter(Q(ecosystem__icontains=query))
         return object_list
