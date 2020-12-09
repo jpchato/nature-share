@@ -16,7 +16,7 @@ class Organism(models.Model):
     class Ecosystem(models.TextChoices):
         TEMPERATE_RAINFOREST = 'Temperate Rainforest',
         TROPICAL_RAINFOREST = 'Tropical Rainforest',
-        DESERT = 'DESERT',
+        DESERT = 'Desert',
         GRASSLAND = 'Grassland',
         TAIGA = 'Taiga',
         TUNDRA = 'Tundra',

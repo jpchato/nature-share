@@ -32,4 +32,14 @@ div {
     border: solid 1px #72601b;
     width: 25%;
     margin: auto;
+    margin-top: 5px;
+}
+
+h1 {
+    text-align: center;
+}
+
+form {
+    text-align: center;
+    margin-top: 20px;
 }
