@@ -5,10 +5,11 @@
 {% load static %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'natureShareApp/home_style.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <!DOCTYPE html> 
 <html lang="en"> 
-<head> 
+<head>
     <meta charset="UTF-8"> 
     <title>natureShare</title> 
 </head> 
@@ -16,12 +17,15 @@
     <form method = "post" enctype="multipart/form-data"> 
         {% csrf_token %} 
         {{ form.as_p }} 
+        {{form.media}}
+        
         <button type="submit">Upload</button> 
     </form> 
 </body> 
 <form action="{% url 'search_results' %}" method="get">
     <input name="q" type="text" placeholder="Search by ecosystem type">
 </form>
+
 </html> 
 
 {% endblock %}
