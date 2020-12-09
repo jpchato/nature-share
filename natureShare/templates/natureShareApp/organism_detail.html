@@ -14,13 +14,15 @@
     <p>ecosystem: {{ organism.ecosystem }}</p>
     <p>[[ ecosystem_summary ]]</p>
     <p>weather: {{ organism.weather }}</p>
-    <p>[[ weather_summary ]]</p>
+    <!-- <p>[[ weather_summary ]]</p> -->
     <p>date: {{ organism.date }}</p>
 </div>
 
 
 <script> 
-      var app = new Vue({
+    organismEcosystem = '{{organism.ecosystem}}'
+    console.log(organismEcosystem)
+    var app = new Vue({
         delimiters: ['[[', ']]'],
         el: '#app',
         data: {
@@ -29,8 +31,11 @@
             
         },
         mounted:  async function(event){
-            let response = await axios.get('https://en.wikipedia.org/api/rest_v1/page/summary/{{organism.ecosystem}}');
-            this.ecosystem_summary = response.data.extract;
+            
+            if (organismEcosystem != 'None' && organismEcosystem != 'Unknown' && organismEcosystem != 'Other'){
+                let response = await axios.get('https://en.wikipedia.org/api/rest_v1/page/summary/{{organism.ecosystem}}');
+                this.ecosystem_summary = response.data.extract;
+            }
 
             let weather_response = await axios.get('https://en.wikipedia.org/api/rest_v1/page/summary/{{organism.weather}}');
             this.weather_summary = weather_response.data.extract;
