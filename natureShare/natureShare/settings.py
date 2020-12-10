@@ -131,7 +131,7 @@ MEDIA_URL = '/media/'
 
 LOCATION_FIELD = {
 'provider.google.api': '//maps.google.com/maps/api/js?sensor=false',
-'provider.google.api_key': 'AIzaSyAuSYnkfHW-5iLvdf_IXpbv58EEwODtPDw',
+'provider.google.api_key': '',
 'provider.google.api_libraries': '',
 'provider.google.map.type': 'ROADMAP',
 }

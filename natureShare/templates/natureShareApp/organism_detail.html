@@ -6,6 +6,24 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+<script
+      src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap&libraries=&v=weekly"
+      defer
+    ></script>
+
+<style type="text/css">
+    /* Set the size of the div element that contains the map */
+    #map {
+        height: 400px;
+        
+        width: 100%;
+        
+    }
+    </style>
+
+
+
+
 
 <link rel="stylesheet" type="text/css" href="{% static 'natureShareApp/organism_detail.css' %}">
 <div id = 'app'>
@@ -16,9 +34,12 @@
     <p>[[ ecosystem_summary ]]</p>
     <p>weather: {{ organism.weather }}</p>
     <p>date: {{ organism.date }}</p>
-    <p>{{ organism.location }}</p>
+    <p>Latitude and Longitude: {{ organism.location }}</p>
+    
+    
     
 </div>
+<div id="map"></div>
     
 
 <script> 
@@ -33,18 +54,31 @@
             
         },
         mounted:  async function(event){
-            
             if (organismEcosystem != 'None' && organismEcosystem != 'Unknown' && organismEcosystem != 'Other'){
                 let response = await axios.get('https://en.wikipedia.org/api/rest_v1/page/summary/{{organism.ecosystem}}');
                 this.ecosystem_summary = response.data.extract;
             }
-
             let weather_response = await axios.get('https://en.wikipedia.org/api/rest_v1/page/summary/{{organism.weather}}');
             this.weather_summary = weather_response.data.extract;
-
         },
-       
     })
-        
-    </script>
+</script>
+<script>
+    function initialize(){
+     var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
+     var myOptions = {
+         zoom: 4,
+         center: myLatlng,
+         mapTypeId: google.maps.MapTypeId.ROADMAP
+         }
+      map = new google.maps.Map(document.getElementById("map"), myOptions);
+      var marker = new google.maps.Marker({
+          position: myLatlng, 
+          map: map,
+      title:"Fast marker"
+     });
+    } 
+
+    google.maps.event.addDomListener(window,'load', initialize);
+</script>
 {% endblock %}
