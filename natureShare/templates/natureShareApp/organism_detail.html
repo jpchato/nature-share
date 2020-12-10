@@ -1,31 +1,43 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
-
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- REFERENCES -->
+<!-- https://developers.google.com/maps/documentation/javascript/adding-a-google-map#all -->
 
 <script
       src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap&libraries=&v=weekly"
-      defer
+      async defer
     ></script>
-
-<style type="text/css">
-    /* Set the size of the div element that contains the map */
-    #map {
-        height: 400px;
-        
-        width: 100%;
-        
-    }
-    </style>
-
-
-
-
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    coordinates = '{{organism.location}}'
+    var partsOfStr = coordinates.split(',');
+    lat = parseInt(parseFloat(partsOfStr[0]))
+    lon = parseInt(parseFloat(partsOfStr[1]))
+    cleanCoordinates = lat.toFixed(6) + ',' + lon.toFixed(6)
+    function initialize(){
+        // var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
+        // var myLatlng = new google.maps.LatLng('{{organism.location}}');
+        var myLatlng = new google.maps.LatLng(lat,lon);
+        var myOptions = {
+            zoom: 10,
+            center: myLatlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+        map = new google.maps.Map(document.getElementById("map"), myOptions);
+        var marker = new google.maps.Marker({
+            position: myLatlng, 
+            map: map,
+        title:"Fast marker"
+        });
+    } 
+    google.maps.event.addDomListener(window,'load', initialize);
+</script>
 
 <link rel="stylesheet" type="text/css" href="{% static 'natureShareApp/organism_detail.css' %}">
+
 <div id = 'app'>
     <h1>{{ organism.name }}</h1>
     <img src="{{ organism.picture.url }}" /> 
@@ -35,16 +47,14 @@
     <p>weather: {{ organism.weather }}</p>
     <p>date: {{ organism.date }}</p>
     <p>Latitude and Longitude: {{ organism.location }}</p>
-    
-    
-    
 </div>
-<div id="map"></div>
+
+<div id="map">
+</div>
     
 
 <script> 
     organismEcosystem = '{{organism.ecosystem}}'
-    console.log(organismEcosystem)
     var app = new Vue({
         delimiters: ['[[', ']]'],
         el: '#app',
@@ -63,22 +73,5 @@
         },
     })
 </script>
-<script>
-    function initialize(){
-     var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
-     var myOptions = {
-         zoom: 4,
-         center: myLatlng,
-         mapTypeId: google.maps.MapTypeId.ROADMAP
-         }
-      map = new google.maps.Map(document.getElementById("map"), myOptions);
-      var marker = new google.maps.Marker({
-          position: myLatlng, 
-          map: map,
-      title:"Fast marker"
-     });
-    } 
 
-    google.maps.event.addDomListener(window,'load', initialize);
-</script>
 {% endblock %}
