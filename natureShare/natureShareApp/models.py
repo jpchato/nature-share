@@ -11,7 +11,6 @@ class Organism(models.Model):
         max_length=255, 
         blank = False
         )
-    # location = https://django-geoposition.readthedocs.io/en/latest/
     # https://readthedocs.org/projects/django-location-field/downloads/pdf/latest/
     location = PlainLocationField(based_fields=['city'], zoom=18, blank=True, null=True)
     edibility = models.BooleanField(blank=True, null=True)

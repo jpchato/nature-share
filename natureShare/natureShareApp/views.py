@@ -16,7 +16,6 @@ def home(request):
 
         if form.is_valid():
             form.save()
-            # return redirect('success')
             plural_organism = Organism.objects.all()
             return render(request, 'natureShareApp/images.html', {'organism_images' : plural_organism})
     
@@ -24,23 +23,14 @@ def home(request):
         form = OrganismForm()
     return render(request, 'natureShareApp/home.html', {'form' :  form})
 
-def success(request):
-    return HttpResponse('IT WORKED')
-
 # https://www.geeksforgeeks.org/python-uploading-images-in-django/
+
 def display_images(request):
     if request.method == 'GET':
         plural_organism = Organism.objects.all()
         # return render((request, 'natureShareApp/images.html', {'organism_images' : plural_organism}))
         return render(request, 'natureShareApp/images.html', {'organism_images' : plural_organism})
 
-# def detail_view(self, request, primary_key):
-#     # try:
-#     organism = Organism.objects.get(pk=primary_key)
-#     # except Organism.DoesNotExist:
-#     #     raise Http404('Organism does not exist')
-#     return render(request, 'natureShareApp/organism_detail.html', context={'organism' : organism})
-    
 class OrganismDetailView(generic.DetailView):
     model = Organism
 
