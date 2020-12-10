@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from datetime import datetime
 from location_field.models.plain import PlainLocationField
+from django import forms
+
 
 # Create your models here.
 
@@ -12,7 +14,7 @@ class Organism(models.Model):
         blank = False
         )
     # https://readthedocs.org/projects/django-location-field/downloads/pdf/latest/
-    location = PlainLocationField(based_fields=['city'], zoom=18, blank=True, null=True)
+    location = PlainLocationField(based_fields=['ecosystem'], zoom=18, blank=True, null=True, default='45.502978246693786,-122.67608642578126')
     edibility = models.BooleanField(blank=True, null=True)
     class Ecosystem(models.TextChoices):
         TEMPERATE_RAINFOREST = 'Temperate Rainforest',
