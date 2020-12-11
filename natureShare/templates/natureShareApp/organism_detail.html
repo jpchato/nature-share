@@ -4,8 +4,9 @@
 <!-- REFERENCES -->
 <!-- https://developers.google.com/maps/documentation/javascript/adding-a-google-map#all -->
 
+
 <script
-      src="https://maps.googleapis.com/maps/api/js?key=API KEY GOES HERE&callback=initMap&libraries=&v=weekly"
+      src="https://maps.googleapis.com/maps/api/js?key=API_KEY&callback=initMap&libraries=&v=weekly"
       async defer
     ></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -38,6 +39,7 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'natureShareApp/organism_detail.css' %}">
 
+<section>
 <div id = 'app'>
     <h1>{{ organism.name }}</h1>
     <img src="{{ organism.picture.url }}" /> 
@@ -48,6 +50,8 @@
     <p>date: {{ organism.date }}</p>
     <p>Latitude and Longitude: {{ organism.location }}</p>
 </div>
+</section>
+
 
 <div id="map">
 </div>

@@ -13,6 +13,8 @@ img {
 header{
     text-align: center;
     font-size: 50px;
+    font-family: 'Abril Fatface', cursive;
+    text-shadow: 2px 2px 2px rgb(42, 116, 52);
 }
 
 nav {
@@ -46,7 +48,8 @@ form {
 
 #map {
     height: 400px;
-    
-    width: 100%;
-    
+    text-align: center;
+    width: 25%;
+    margin: auto;
+    margin-top: 20px;
 }

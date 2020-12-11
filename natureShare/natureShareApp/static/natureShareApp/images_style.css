@@ -38,7 +38,11 @@ div {
     text-align: center;
     border: solid 1px #72601b;
     width: 10%;
+    height: 15%;
     margin: auto; 
     margin-top: 10px;
+    display: inline-block;
+    
     
 }
+
