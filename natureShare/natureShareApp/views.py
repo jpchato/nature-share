@@ -6,7 +6,7 @@ from django.views.generic import TemplateView, ListView
 from django.views.generic.detail import DetailView
 from django.views import generic
 from django.db.models import Q
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import UpdateView, DeleteView
 
 
 # Create your views here.
@@ -50,13 +50,7 @@ class OrganismUpdate(UpdateView):
     template_name_suffix = '_update_form'
     success_url ="/organism_images"
 
+class OrganismDelete(DeleteView):
+    model = Organism
 
-# def detail(request, id):
-#     organism = Organism.objects.get(id = id)
-#     if request.method == 'GET':
-#         return render(request, 'natureShareApp/organism_detail.html', {'organism' : organism})
-#     elif request.method == 'POST':
-#         organism.name = request.POST['name']
-#         organism.save()
-#         return redirect('update_organism', organism.id)
-
+    success_url = '/organism_images'

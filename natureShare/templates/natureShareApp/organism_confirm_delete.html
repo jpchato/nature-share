@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+<head>
+    <style>
+        form {
+            text-align: center;
+            border: #72601b 1px solid;
+        }
+    </style>
+</head>
+
+<link rel="stylesheet" type="text/css" href="{% static 'natureShareApp/images_style.css' %}">
+
+
+<form method="post">{% csrf_token %} 
+    <p>Are you sure you want to delete "{{ object }}"?</p> 
+    <input type="submit" value="Confirm"> 
+</form> 
+
+
+{%endblock%}
