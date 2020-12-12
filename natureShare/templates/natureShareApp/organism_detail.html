@@ -49,13 +49,15 @@
     <p>weather: {{ organism.weather }}</p>
     <p>date: {{ organism.date }}</p>
     <p>Latitude and Longitude: {{ organism.location }}</p>
+    <a href="http://127.0.0.1:8000/{{organism.id}}/update">Edit Organism</a>
 </div>
 </section>
 
 
 <div id="map">
 </div>
-    
+
+
 
 <script> 
     organismEcosystem = '{{organism.ecosystem}}'
