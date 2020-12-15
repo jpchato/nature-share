@@ -4,7 +4,7 @@ from datetime import datetime
 from location_field.models.plain import PlainLocationField
 from django import forms
 from django.urls import reverse
-
+from django.conf import settings
 
 # Create your models here.
 
@@ -53,5 +53,7 @@ class Organism(models.Model):
         default=datetime.now
         )
 
+    user = models.ForeignKey(get_user_model(), on_delete = models.CASCADE, default = '')
+    
     def __str__(self):
         return self.name

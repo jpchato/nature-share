@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'natureShareApp/home_style.css' %}">
+
+    <form action='' method = 'POST'>
+        {% csrf_token %}
+        username: <input type='text' name='username'><br>
+        password: <input type='password' name='password'><br>
+        <input type="submit" value="login">
+    </form>
+{% endblock %}

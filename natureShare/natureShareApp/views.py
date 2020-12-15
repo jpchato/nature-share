@@ -7,10 +7,13 @@ from django.views.generic.detail import DetailView
 from django.views import generic
 from django.db.models import Q
 from django.views.generic.edit import UpdateView, DeleteView
+from django.contrib import messages 
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
 
+@login_required(redirect_field_name='login')
 def home(request):
     if request.method == 'POST':
         form = OrganismForm(request.POST, request.FILES)
@@ -26,6 +29,7 @@ def home(request):
 
 # https://www.geeksforgeeks.org/python-uploading-images-in-django/
 
+@login_required(redirect_field_name='login')
 def display_images(request):
     if request.method == 'GET':
         plural_organism = Organism.objects.all()
@@ -52,5 +56,5 @@ class OrganismUpdate(UpdateView):
 
 class OrganismDelete(DeleteView):
     model = Organism
-
     success_url = '/organism_images'
+
