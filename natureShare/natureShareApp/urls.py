@@ -13,7 +13,8 @@ urlpatterns = [
     # https://learndjango.com/tutorials/django-search-tutorial
     path('search/', SearchResultsView.as_view(), name='search_results'),
     path('<pk>/update', OrganismUpdate.as_view()),
-    path('<pk>/delete', OrganismDelete.as_view())
+    path('<pk>/delete', OrganismDelete.as_view()),
+    path('user_organisms', views.user_organisms, name = 'user_organisms')
    
     
 ]

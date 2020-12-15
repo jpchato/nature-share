@@ -17,6 +17,7 @@ from django.contrib.auth.decorators import login_required
 def home(request):
     if request.method == 'POST':
         form = OrganismForm(request.POST, request.FILES)
+        form.instance.user = request.user
 
         if form.is_valid():
             form.save()
@@ -58,3 +59,9 @@ class OrganismDelete(DeleteView):
     model = Organism
     success_url = '/organism_images'
 
+@login_required(redirect_field_name='login')
+def user_organisms(request):
+    organisms = Organism.objects.filter(user = request.user)
+    return render(request, 'natureShareApp/user_organisms.html', {'organisms' : organisms})
+    
+    

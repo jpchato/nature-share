@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'natureShareApp/images_style.css' %}">
+
+
+{% for organism in organisms %}
+<div> 
+    <a href="http://127.0.0.1:8000/{{organism.id}}">{{ organism.name }} </a><br>
+    <img src="{{ organism.picture.url }}" /> 
+    <p>{{ organism.user }}</p>
+</div> 
+{% endfor %}
+{% endblock %}
