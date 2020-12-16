@@ -17,9 +17,13 @@
             text-align: center;
             font-size: large;
         }
+        h4 {
+            text-align: center;
+        }
     </style>
 </head> 
 {% if request.user.is_authenticated %}
+<h4>Welcome to natureShare, {{request.user}}</h4>
 <body> 
     <form method = "post" enctype="multipart/form-data"> 
         {% csrf_token %} 
