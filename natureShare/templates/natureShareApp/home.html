@@ -12,7 +12,14 @@
 <head>
     <meta charset="UTF-8"> 
     <title>natureShare</title> 
+    <style>
+        p {
+            text-align: center;
+            font-size: large;
+        }
+    </style>
 </head> 
+{% if request.user.is_authenticated %}
 <body> 
     <form method = "post" enctype="multipart/form-data"> 
         {% csrf_token %} 
@@ -25,6 +32,9 @@
 <form action="{% url 'search_results' %}" method="get">
     <input name="q" type="text" placeholder="Search by ecosystem type">
 </form>
+{% else %}
+<p>Please log in or register to use natureShare</p>
+{% endif %}
 
 </html> 
 

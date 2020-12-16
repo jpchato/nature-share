@@ -18,6 +18,7 @@ def home(request):
     if request.method == 'POST':
         form = OrganismForm(request.POST, request.FILES)
         form.instance.user = request.user
+        # https://stackoverflow.com/a/62727319/14263621 --- solution for class based view user model without showing user to customer
 
         if form.is_valid():
             form.save()
