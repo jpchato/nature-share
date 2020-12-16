@@ -13,6 +13,7 @@ header{
 
 nav {
     text-align: center;
+    
 }
 
 footer{
@@ -21,11 +22,13 @@ footer{
 
 a {
     color: #72601b;
+    margin-left: 12px;
 }
 
 form {
-    text-align: left;
+    text-align: center;
     border: solid 1px #72601b;
     width: 500px;
     margin: auto;
 }
+
