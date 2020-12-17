@@ -12,11 +12,6 @@
 <head>
     <meta charset="UTF-8"> 
     <title>natureShare</title> 
-    <style>
-        a:hover{
-            color: pink;
-        }
-    </style>
 </head> 
 {% if request.user.is_authenticated %}
 <h4>Welcome to natureShare, {{request.user}}</h4>
@@ -30,6 +25,7 @@
     </form> 
 </body> 
 <form action="{% url 'search_results' %}" method="get">
+    <h4>Search by Ecosystem Type</h4>
     <input name="q" type="text" placeholder="Search by ecosystem type">
 </form>
 {% else %}
