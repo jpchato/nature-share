@@ -12,15 +12,6 @@
 <head>
     <meta charset="UTF-8"> 
     <title>natureShare</title> 
-    <style>
-        p {
-            text-align: center;
-            font-size: large;
-        }
-        h4 {
-            text-align: center;
-        }
-    </style>
 </head> 
 {% if request.user.is_authenticated %}
 <h4>Welcome to natureShare, {{request.user}}</h4>
@@ -37,7 +28,7 @@
     <input name="q" type="text" placeholder="Search by ecosystem type">
 </form>
 {% else %}
-<p>Please log in or register to use natureShare</p>
+<p style='text-align: center;'>Please log in or register to use natureShare</p>
 {% endif %}
 
 </html> 

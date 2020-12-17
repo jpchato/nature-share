@@ -1,5 +1,5 @@
 /* path 'natureShareApp/images_style.css' */
-
+@media only screen and (min-width: 768px) {
 html {
     background-color: #19270d;
     color: #818c3c;
@@ -62,4 +62,56 @@ form {
 
 #update_button {
     margin-bottom: 10px;
+}}
+
+@media only screen and (max-width: 767px) {
+    html{
+        background-color: black;
+        color: white;
+    }
+    a {
+        color: yellow;
+    }
+    nav a {
+        display: block;
+    }
+    header {
+        text-align: center;
+        font-size: xx-large;
+    }
+    nav {
+        text-align: center;
+    }
+    form {
+        display: block;
+        border: solid 1px yellow;
+        max-width: 100%;
+    }
+    footer {
+        text-align: center;
+    }
+    footer a{
+        display: block;
+    }
+    #map_location {
+        max-width: 100%;
+    }
+    img {
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+    }
+    #app {
+        border: 1px solid yellow;
+        max-width: 100%;
+        text-align: center;
+        margin-top: 10px;
+    }
+    #map {
+        height: 400px;
+        text-align: center;
+        max-width: 100%;
+        margin: auto;
+        margin-top: 20px;
+    }
 }
