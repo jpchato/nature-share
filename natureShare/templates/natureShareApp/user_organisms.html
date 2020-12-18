@@ -4,13 +4,7 @@
 {% block content %}
 {% load static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'natureShareApp/images_style.css' %}">
-<style>
-    h2 {
-        text-align: center;
-        
-    }
-</style>
+<link rel="stylesheet" type="text/css" href="{% static 'natureShareApp/user_organisms.css' %}">
 <h2>{{request.user}}'s Organisms</h4>
 {% for organism in organisms %}
 <div> 

@@ -6,12 +6,21 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'natureShareApp/home_style.css' %}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 <!DOCTYPE html> 
 <html lang="en"> 
 <head>
     <meta charset="UTF-8"> 
     <title>natureShare</title> 
+    <script>
+        let APICall = async function(){
+            // let response = await axios.get('https://en.wikipedia.org/api/rest_v1/page/summary/{{organism.ecosystem}}');
+            let response = await axios.get('https://en.wikipedia.org/api/rest_v1/page/summary/Temperate_Forest');
+            ecosystem_summary = response.data.extract;
+            alert(ecosystem_summary)
+        }
+    </script>
 </head> 
 {% if request.user.is_authenticated %}
 <h4>Welcome to natureShare, {{request.user}}</h4>
@@ -22,6 +31,7 @@
         {{form.media}}
         
         <button type="submit">Upload</button> 
+        <button onclick="APICall()">?</button>
     </form> 
 </body> 
 <form action="{% url 'search_results' %}" method="get">
