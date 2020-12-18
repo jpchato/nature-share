@@ -1,51 +1,58 @@
 /* path 'natureShareApp/images_style.css' */
 @media only screen and (min-width: 768px) {
-html {
-    background-color: #19270d;
-    color: #818c3c;
-    
-}
+    html {
+        background-color: #19270d;
+        color: #818c3c;
+        
+        
+    }
 
-img {
-    height: 100px;
-    width: 100px;
-    margin-bottom: 10px;
-    margin-top: 10px;
-}
+    body {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+    }
 
-header{
-    text-align: center;
-    font-size: 50px;
-}
+    img {
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+    }
 
-nav {
-    text-align: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
+    header{
+        text-align: center;
+        font-size: 50px;
+        width: 100%;
+    }
 
-footer{
-    text-align: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
+    nav {
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        width: 100%;
+    }
 
-a {
-    color: #72601b;
-    margin-left: 12px;
-}
+    footer{
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        width: 100%;
+    }
 
-div {
-    text-align: center;
-    border: solid 1px #72601b;
-    width: 10%;
-    height: 15%;
-    margin: auto; 
-    margin-top: 10px;
-    display: inline-block;
-    
-    
-}}
+    a {
+        color: #72601b;
+        margin-left: 12px;
+    }
+
+    div {
+        text-align: center;
+        border: solid 1px #72601b; 
+        margin: auto; 
+        max-height: 1000px;
+        margin-top: 10px;
+    }
+}
 
 @media only screen and (max-width: 767px) {
     html{
