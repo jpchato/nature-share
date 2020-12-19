@@ -5,6 +5,7 @@
 {% load static %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'natureShareApp/home_style.css' %}">
+<script type="text/javascript" src="{% static 'natureShareApp/home.js' %}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
@@ -13,14 +14,6 @@
 <head>
     <meta charset="UTF-8"> 
     <title>natureShare</title> 
-    <script>
-        let APICall = async function(){
-            // let response = await axios.get('https://en.wikipedia.org/api/rest_v1/page/summary/{{organism.ecosystem}}');
-            let response = await axios.get('https://en.wikipedia.org/api/rest_v1/page/summary/Temperate_Forest');
-            ecosystem_summary = response.data.extract;
-            alert(ecosystem_summary)
-        }
-    </script>
 </head> 
 {% if request.user.is_authenticated %}
 <h4>Welcome to natureShare, {{request.user}}</h4>
@@ -31,9 +24,19 @@
         {{form.media}}
         
         <button type="submit">Upload</button> 
-        <button onclick="APICall()">?</button>
     </form> 
-</body> 
+    <form id='ecosystemInfo'>
+        <h4>Information About Ecosystems</h4>
+        <button type='button' onclick="temperateForest()">Temperate Forest</button>
+        <button type='button' onclick="tropicalRainforest()">Tropical Rainforest</button>
+        <button type='button' onclick="desert()">Desert</button>
+        <button type='button' onclick="grassland()">Grassland</button>
+        <button type='button' onclick="taiga()">Taiga</button>
+        <button type='button' onclick="tundra()">Tundra</button>
+        <button type='button' onclick="chaparral()">chaparral</button>
+        <button type='button' onclick="ocean()">ocean</button>
+    </form> 
+    
 <form action="{% url 'search_results' %}" method="get">
     <h4>Search by Ecosystem Type</h4>
     <input name="q" type="text" placeholder="Search by ecosystem type">
