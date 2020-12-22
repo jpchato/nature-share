@@ -9,6 +9,8 @@ from django.db.models import Q
 from django.views.generic.edit import UpdateView, DeleteView
 from django.contrib import messages 
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import redirect_to_login
+from django.http import HttpResponse, HttpResponseRedirect
 
 
 # Create your views here.
@@ -55,6 +57,10 @@ class OrganismUpdate(UpdateView):
     fields = ['name', 'edibility', 'ecosystem', 'weather', 'date', 'location']
     template_name_suffix = '_update_form'
     success_url ="/organism_images"
+
+    def get_queryset(self):
+        base_qs = super(OrganismUpdate, self).get_queryset()
+        return base_qs.filter(user=self.request.user)
 
 class OrganismDelete(DeleteView):
     model = Organism
