@@ -41,19 +41,36 @@
 
 <section>
 <div id = 'app'>
+
     <h1>{{ organism.name }}</h1>
     <img src="{{ organism.picture.url }}" /> 
-    <p>edible: {{ organism.edibility }}</p>
-    <p>ecosystem: {{ organism.ecosystem }}</p>
-    <p>[[ ecosystem_summary ]]</p>
-    <p>weather: {{ organism.weather }}</p>
-    <p>date: {{ organism.date }}</p>
-    <p>Latitude and Longitude: {{ organism.location }}</p>
-    <p>Uploaded by {{organism.user}} </p>
-    {% if user == organism.user %}
-    <a href="http://127.0.0.1:8000/{{organism.id}}/update">Edit Organism</a><br>
-    <a href="http://127.0.0.1:8000/{{organism.id}}/delete">Delete Organism</a>
+
+    {% if organism.edibility != None %}
+        <p>edible: {{ organism.edibility }}</p>
     {% endif %}
+
+    {% if organism.ecosystem != None %}
+        <p>ecosystem: {{ organism.ecosystem }}</p>
+        <p>[[ ecosystem_summary ]]</p>
+    {% endif %}
+
+    {% if organism.weather != None %}
+        <p>weather: {{ organism.weather }}</p>\
+    {% endif %}
+
+    <p>date: {{ organism.date }}</p>
+    
+    {% if organism.location != '' %}
+        <p>Latitude and Longitude: {{ organism.location }}</p>
+    {% endif %}
+
+    <p>Uploaded by {{organism.user}} </p>
+
+    {% if user == organism.user %}
+        <a href="http://127.0.0.1:8000/{{organism.id}}/update">Edit Organism</a><br>
+        <a href="http://127.0.0.1:8000/{{organism.id}}/delete">Delete Organism</a>
+    {% endif %}
+
 </div>
 </section>
 
