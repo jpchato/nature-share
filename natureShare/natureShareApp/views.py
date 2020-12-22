@@ -58,6 +58,7 @@ class OrganismUpdate(UpdateView):
     template_name_suffix = '_update_form'
     success_url ="/organism_images"
 
+    # https://stackoverflow.com/a/8595758/14263621
     def get_queryset(self):
         base_qs = super(OrganismUpdate, self).get_queryset()
         return base_qs.filter(user=self.request.user)
