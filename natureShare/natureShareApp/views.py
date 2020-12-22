@@ -67,6 +67,10 @@ class OrganismDelete(DeleteView):
     model = Organism
     success_url = '/organism_images'
 
+    def get_queryset(self):
+        base_qs = super(OrganismDelete, self).get_queryset()
+        return base_qs.filter(user=self.request.user)
+
 @login_required(redirect_field_name='login')
 def user_organisms(request):
     organisms = Organism.objects.filter(user = request.user)
