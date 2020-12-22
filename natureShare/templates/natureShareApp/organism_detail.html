@@ -54,13 +54,14 @@
     <a href="http://127.0.0.1:8000/{{organism.id}}/update">Edit Organism</a><br>
     <a href="http://127.0.0.1:8000/{{organism.id}}/delete">Delete Organism</a>
     {% endif %}
-    
 </div>
 </section>
 
-
+{% if organism.location != '' %}
 <div id="map">
 </div>
+{% endif %}
+
 
 
 

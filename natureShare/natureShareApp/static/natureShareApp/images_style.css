@@ -14,12 +14,12 @@
 
     img {
         width: 100%;
-        max-width: 300px;
+        max-width: 100px;
         max-height: auto;
         padding-bottom: 25px;
         margin-top: 10px;
     }
-
+ 
     header{
         text-align: center;
         font-size: 50px;
@@ -50,11 +50,13 @@
 
     div {
         text-align: center;
-        border: solid 1px #72601b; 
+        border: solid 2px #72601b; 
+        border-radius: 5px;
         margin: auto; 
+        /* height: 200px; */
         max-height: auto;
         margin-top: 10px;
-        width: 45%;
+        width: 20%;
     }
 
     
