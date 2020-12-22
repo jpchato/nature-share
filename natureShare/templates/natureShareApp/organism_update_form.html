@@ -23,6 +23,7 @@
             <p>ecosystem: {{ organism.ecosystem }}</p>
             <p>weather: {{ organism.weather }}</p>
             <p>date: {{ organism.date }}</p>
+            
             <p>Latitude and Longitude: {{ organism.location }}</p>
         </div>
     </section>
@@ -30,7 +31,7 @@
         {% csrf_token %}
         <h1>Update Your Organism</h1>
         {{ form.as_p }}
-        {{form.media}}
+        {{form.media}}  
         <input type="submit" value="Update" id='update_button'>
     </form>
 </body>
