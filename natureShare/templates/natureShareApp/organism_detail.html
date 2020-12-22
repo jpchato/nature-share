@@ -50,8 +50,10 @@
     <p>date: {{ organism.date }}</p>
     <p>Latitude and Longitude: {{ organism.location }}</p>
     <p>Uploaded by {{organism.user}} </p>
+    {% if user == organism.user %}
     <a href="http://127.0.0.1:8000/{{organism.id}}/update">Edit Organism</a><br>
     <a href="http://127.0.0.1:8000/{{organism.id}}/delete">Delete Organism</a>
+    {% endif %}
 </div>
 </section>
 
