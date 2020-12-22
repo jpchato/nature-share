@@ -136,7 +136,7 @@ LOCATION_FIELD = {
 'search.provider': 'google',
 'search.suffix': '',
 'provider.google.api': '//maps.google.com/maps/api/js?sensor=false',
-'provider.google.api_key': 'AIzaSyDNu4uyoDsDnN3loteXz5ZT_2yfx9nuSQ8',
+'provider.google.api_key': 'AIzaSyD4sW1Mx3HChvgQYV4kxTk09lqvXwK6Wo0',
 'provider.google.api_libraries': '',
 'provider.google.map.type': 'ROADMAP',
 }
