@@ -55,7 +55,7 @@
     {% endif %}
 
     {% if organism.weather != None %}
-        <p>weather: {{ organism.weather }}</p>\
+        <p>weather: {{ organism.weather }}</p>
     {% endif %}
 
     <p>date: {{ organism.date }}</p>
@@ -70,6 +70,7 @@
         <a href="http://127.0.0.1:8000/{{organism.id}}/update">Edit Organism</a><br>
         <a href="http://127.0.0.1:8000/{{organism.id}}/delete">Delete Organism</a>
     {% endif %}
+   
 
 </div>
 </section>
@@ -78,7 +79,6 @@
 <div id="map">
 </div>
 {% endif %}
-
 
 
 
@@ -103,4 +103,7 @@
     })
 </script>
 
+
 {% endblock %}
+
+

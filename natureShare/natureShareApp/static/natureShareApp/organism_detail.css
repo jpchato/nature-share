@@ -32,7 +32,8 @@ a {
 
 #app {
     text-align: center;
-    border: solid 1px #72601b;
+    border: solid 2px #72601b;
+    border-radius: 5px;
     width: 500px;
     margin: auto;
     margin-top: 5px;
