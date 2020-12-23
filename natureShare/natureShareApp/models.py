@@ -15,6 +15,7 @@ class Organism(models.Model):
         blank = False
         )
     # https://readthedocs.org/projects/django-location-field/downloads/pdf/latest/
+    # default coordinates for Portland
     location = PlainLocationField(based_fields=['ecosystem'], zoom=18, blank=True, null=True, default='45.502978246693786,-122.67608642578126')
     edibility = models.BooleanField(blank=True, null=True)
     class Ecosystem(models.TextChoices):
