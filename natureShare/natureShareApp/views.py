@@ -33,22 +33,28 @@ def home(request):
             # takes the request and renders the images page
             return render(request, 'natureShareApp/images.html', {'organism_images' : plural_organism})
     
+    # if the request method is not a post, the form will be equal to OrganismForm from our forms.py
     else:
         form = OrganismForm()
+    # renders the home page with the form again --- essentially refreshing the page if it's not a POST
     return render(request, 'natureShareApp/home.html', {'form' :  form})
 
 # https://www.geeksforgeeks.org/python-uploading-images-in-django/
 
+# view for the page that displays all images --- decorator that requires login and redirects to login field if user is not logged in
 @login_required(redirect_field_name='login')
 def display_images(request):
+    # if the request method is a get, all the organisms in my model are retrieved and displayed on our images.html page
     if request.method == 'GET':
         plural_organism = Organism.objects.all()
         # return render((request, 'natureShareApp/images.html', {'organism_images' : plural_organism}))
         return render(request, 'natureShareApp/images.html', {'organism_images' : plural_organism})
 
+# Class based view that renders all the details of an organism on the organism_detail.html
 class OrganismDetailView(generic.DetailView):
     model = Organism
 
+# Class based view that allows users to search by ecosystem type and render a list view on search_result.html
 class SearchResultsView(ListView):
     model = Organism
     template_name = 'natureShareApp/search_results.html'
