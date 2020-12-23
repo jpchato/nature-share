@@ -66,11 +66,14 @@
 
     <p>Uploaded by {{organism.user}} </p>
 
+    <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text={{organism.name}} http://127.0.0.1:8000/20" data-size="large">
+        Share Your Organism to Twitter
+    </a>
     {% if user == organism.user %}
         <a href="http://127.0.0.1:8000/{{organism.id}}/update">Edit Organism</a><br>
         <a href="http://127.0.0.1:8000/{{organism.id}}/delete">Delete Organism</a>
     {% endif %}
-   
+    
 
 </div>
 </section>
