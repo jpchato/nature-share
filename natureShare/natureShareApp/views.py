@@ -15,16 +15,22 @@ from django.http import HttpResponse, HttpResponseRedirect
 
 # Create your views here.
 
+# View for my home page, login_required decorator prevents rendering if user is not logged in, will redirect to login filed if user is not logged in
 @login_required(redirect_field_name='login')
 def home(request):
+    # If the user does a POST method, do the following action
     if request.method == 'POST':
+        # creating a variable that is equal to request.POST which is the text content, and request.FILES which is the picture
         form = OrganismForm(request.POST, request.FILES)
+        # This line tells us what user is doing the POST
         form.instance.user = request.user
         # https://stackoverflow.com/a/62727319/14263621 --- solution for class based view user model without showing user to customer
 
+        # built in django method --- if form is valid, save it. plural organism is everything from the model
         if form.is_valid():
             form.save()
             plural_organism = Organism.objects.all()
+            # takes the request and renders the images page
             return render(request, 'natureShareApp/images.html', {'organism_images' : plural_organism})
     
     else:
