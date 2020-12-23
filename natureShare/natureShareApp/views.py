@@ -56,36 +56,56 @@ class OrganismDetailView(generic.DetailView):
 
 # Class based view that allows users to search by ecosystem type and render a list view on search_result.html
 class SearchResultsView(ListView):
+    # Specifying the model
     model = Organism
+    # Specifying the template to render our object_list
     template_name = 'natureShareApp/search_results.html'
     
+    # Not sure --- I forgot to save the link from stack overflow
     def get_queryset(self):
+        # Setting our query using Q that we imported
         query = self.request.GET.get('q')
+        # our object list filetered to contain ecosystem
         object_list = Organism.objects.filter(Q(ecosystem__icontains=query))
         return object_list
 
+# Class based view that allows users to edit their own content
 class OrganismUpdate(UpdateView):
+    # setting the model equal to our organism
     model = Organism
+    # specifying the fields to be rendered
     fields = ['name', 'edibility', 'ecosystem', 'weather', 'date', 'location']
+    # Not sure why we need this
     template_name_suffix = '_update_form'
+    # url to go to if successful
     success_url ="/organism_images"
 
     # https://stackoverflow.com/a/8595758/14263621
+    # This function allows users to edit only their own organisms and not others organisms
     def get_queryset(self):
+        # setting the base querys
+        # super is a built in python function
         base_qs = super(OrganismUpdate, self).get_queryset()
         return base_qs.filter(user=self.request.user)
 
+# Class based view that allows users to delete their own content
 class OrganismDelete(DeleteView):
+    # sets the model equal to organism
     model = Organism
+    # renders the organism_images url when successfully deleting an organism
     success_url = '/organism_images'
 
+    # Allows users to edit their own organisms and not others organisms
     def get_queryset(self):
         base_qs = super(OrganismDelete, self).get_queryset()
         return base_qs.filter(user=self.request.user)
 
+# function based view that allows users to see their own organisms, redirects to login field if user is not logged in
 @login_required(redirect_field_name='login')
 def user_organisms(request):
+    # filtering organisms by the requesting user
     organisms = Organism.objects.filter(user = request.user)
+    # rendering the users organisms to user_organisms.html
     return render(request, 'natureShareApp/user_organisms.html', {'organisms' : organisms})
     
     
