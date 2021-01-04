@@ -12,12 +12,18 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- script to make manipulate coordinates so they work with google maps -->
 <script>
+    // converting from django to js
     coordinates = '{{organism.location}}'
+    // splitting the coordinates at tha appostrophe
     var partsOfStr = coordinates.split(',');
+    // converting lat and lon to integers
     lat = parseInt(parseFloat(partsOfStr[0]))
     lon = parseInt(parseFloat(partsOfStr[1]))
+    // concatenating lat/lon and making them both 6 digits long
     cleanCoordinates = lat.toFixed(6) + ',' + lon.toFixed(6)
+    // from google map docs
     function initialize(){
         // var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
         // var myLatlng = new google.maps.LatLng('{{organism.location}}');

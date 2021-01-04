@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+
+
+<link rel="stylesheet" type="text/css" href="{% static 'natureShareApp/search_results.css' %}">
+<h1>Search Results</h1>
+
+
+{% for organism in object_list %}
+<div>
+  <h1>
+    {{ organism.name }}
+  </h1>
+  <img src="{{ organism.picture.url }}" /> 
+  <p>
+    edible: {{ organism.edibility }}
+  </p>
+  <p>
+    {{ organism.ecosystem }}
+  </p>
+  <p>
+    {{ organism.weather }}
+  </p>
+  <p>
+    {{ organism.date }}
+  </p>
+</div>
+{% endfor %}
+
+<form action="{% url 'search_results' %}" method="get">
+  <input name="q" type="text" placeholder="Search by ecosystem">
+</form>
+  
+
+
+
+
+
+{% endblock %}

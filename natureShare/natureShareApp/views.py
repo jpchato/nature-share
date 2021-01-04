@@ -69,6 +69,20 @@ class SearchResultsView(ListView):
         object_list = Organism.objects.filter(Q(ecosystem__icontains=query))
         return object_list
 
+class UserSearchResultsView(ListView):
+    # Specifying the model
+    model = Organism
+    # Specifying the template to render our object_list
+    template_name = 'natureShareApp/user_search_results.html'
+    
+    # Not sure --- I forgot to save the link from stack overflow
+    def get_queryset(self):
+        # Setting our query using Q that we imported
+        query = self.request.GET.get('q')
+        # our object list filetered to contain ecosystem
+        object_list = Organism.objects.filter(Q(user__icontains=query))
+        return object_list
+
 # Class based view that allows users to edit their own content
 class OrganismUpdate(UpdateView):
     # setting the model equal to our organism
