@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -141,3 +142,4 @@ LOCATION_FIELD = {
 'provider.google.map.type': 'ROADMAP',
 }
 
+django_heroku.settings(locals())
