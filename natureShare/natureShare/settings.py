@@ -22,10 +22,12 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '6@sd2_5m=-6)8=1%e7g$-dl2+=4)lnlka3n^4owrk4w$b$#kji'
+# SECRET_KEY = '6@sd2_5m=-6)8=1%e7g$-dl2+=4)lnlka3n^4owrk4w$b$#kji'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'cg#p$g+j9tax!#a3cup@1$8obt2_+&k3q+pmu)5%asj6yjpkag')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 ALLOWED_HOSTS = []
 
@@ -81,7 +83,7 @@ WSGI_APPLICATION = 'natureShare.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': str(BASE_DIR / 'db.sqlite3'),
     }
 }
 
@@ -126,7 +128,7 @@ PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'natureShareApp/static')]
 
 # Images: https://www.geeksforgeeks.org/python-uploading-images-in-django/
 # MEDIA_ROOT is for server path to store files in the computer.
