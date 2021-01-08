@@ -8,7 +8,7 @@
 <h2>{{request.user}}'s Organisms</h4>
 {% for organism in organisms %}
 <div> 
-    <a href="{% url 'home' %}/{{organism.id}}">{{ organism.name }} </a><br>
+    <a href="{% url 'organism-detail' organism.id %}">{{ organism.name }} </a><br>
     <img src="{{ organism.picture.url }}" /> 
 </div> 
 {% endfor %}
