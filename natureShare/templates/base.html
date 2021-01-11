@@ -15,7 +15,7 @@
     </header>
     
     <nav>
-        {% if request.user.is_authenticated %}
+        <!-- {% if request.user.is_authenticated %}
             <a href="http://127.0.0.1:8000/">Home</a>
             <a href="http://127.0.0.1:8000/organism_images">Organism Images</a>
             <a href="http://127.0.0.1:8000/accounts/logout">Logout</a>
@@ -23,6 +23,15 @@
         {% else %}
             <a href="http://127.0.0.1:8000/accounts/login">Login</a> 
             <a href="http://127.0.0.1:8000/accounts/">Register</a>
+        {% endif %} -->
+        {% if request.user.is_authenticated %}
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'organism_images' %}">Organism Images</a>
+            <a href="{% url 'logout' %}">Logout</a>
+            <a href="{% url 'user_organisms' %}">My Organisms</a>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a> 
+            <a href="{% url 'register' %}">Register</a>
         {% endif %}
     </nav>
     {% block content %}

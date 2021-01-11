@@ -8,8 +8,8 @@
 <h2>{{request.user}}'s Organisms</h4>
 {% for organism in organisms %}
 <div> 
-    <a href="http://127.0.0.1:8000/{{organism.id}}">{{ organism.name }} </a><br>
+    <a href="{% url 'organism-detail' organism.id %}">{{ organism.name }} </a><br>
     <img src="{{ organism.picture.url }}" /> 
 </div> 
 {% endfor %}
-{% endblock %}
+{% endblock %} 
