@@ -3,12 +3,17 @@
 {% load static %}
 <!-- REFERENCES -->
 <!-- https://developers.google.com/maps/documentation/javascript/adding-a-google-map#all -->
+<!-- Manipulating script tag to use django secret key -->
+<!-- https://www.geeksforgeeks.org/how-to-insert-a-javascript-variable-inside-href-attribute/ -->
 
-
-<script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4sW1Mx3HChvgQYV4kxTk09lqvXwK6Wo0&callback=initMap&libraries=&v=weekly"
-      async defer
-    ></script>
+<script>
+    let GOOGLE_API_KEY='{{GOOGLE_API_KEY}}'
+    console.log(GOOGLE_API_KEY)
+</script>
+<script> 
+    var loc = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API_KEY}&callback=initMap&libraries=&v=weekly`; 
+    document.write('<script src="' + loc + '"><\/script>'); 
+</script> 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -25,8 +30,6 @@
     cleanCoordinates = lat.toFixed(6) + ',' + lon.toFixed(6)
     // from google map docs
     function initialize(){
-        // var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
-        // var myLatlng = new google.maps.LatLng('{{organism.location}}');
         var myLatlng = new google.maps.LatLng(lat,lon);
         var myOptions = {
             zoom: 10,
@@ -72,12 +75,10 @@
 
     <p>Uploaded by {{organism.user}} </p>
 
-    <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text={{organism.name}} http://127.0.0.1:8000/20" data-size="large">
+    <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text={{organism.name}} {% url 'organism-detail' organism.id %}" data-size="large">
         Share Your Organism to Twitter
     </a>
     {% if user == organism.user %}
-        <!-- <a href="http://127.0.0.1:8000/{{organism.id}}/update">Edit Organism</a><br>
-        <a href="http://127.0.0.1:8000/{{organism.id}}/delete">Delete Organism</a> -->
         <a href="{% url 'edit' organism.id  %}">Edit Organism</a><br>
         <a href="{% url 'delete' organism.id  %}">Delete Organism</a>
     {% endif %}
