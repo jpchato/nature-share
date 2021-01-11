@@ -11,6 +11,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import redirect_to_login
 from django.http import HttpResponse, HttpResponseRedirect
+import os
 
 
 # Create your views here.
@@ -53,6 +54,14 @@ def display_images(request):
 # Class based view that renders all the details of an organism on the organism_detail.html
 class OrganismDetailView(generic.DetailView):
     model = Organism
+    
+
+    def get_context_data(self, *args, **kwargs):
+        GOOGLE_API_KEY=os.environ.get('GOOGLE_API_KEY')
+        context = super(OrganismDetailView, self).get_context_data(*args, **kwargs)
+        context['GOOGLE_API_KEY'] = GOOGLE_API_KEY
+        return context
+        
 
 # Class based view that allows users to search by ecosystem type and render a list view on search_result.html
 class SearchResultsView(ListView):
