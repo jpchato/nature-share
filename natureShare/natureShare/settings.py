@@ -12,24 +12,29 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+import dotenv
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
-
+dotenv_file = os.path.join(BASE_DIR, ".env")
+if os.path.isfile(dotenv_file):
+    dotenv.load_dotenv(dotenv_file)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = '6@sd2_5m=-6)8=1%e7g$-dl2+=4)lnlka3n^4owrk4w$b$#kji'
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'cg#p$g+j9tax!#a3cup@1$8obt2_+&k3q+pmu)5%asj6yjpkag')
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = ['nature-share.herokuapp.com']
+ALLOWED_HOSTS = ['nature-share.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -145,7 +150,7 @@ LOCATION_FIELD = {
 'search.provider': 'google',
 'search.suffix': '',
 'provider.google.api': '//maps.google.com/maps/api/js?sensor=false',
-'provider.google.api_key': 'AIzaSyD4sW1Mx3HChvgQYV4kxTk09lqvXwK6Wo0',
+'provider.google.api_key': 'GOOGLE_API_KEY',
 'provider.google.api_libraries': '',
 'provider.google.map.type': 'ROADMAP',
 }
