@@ -144,13 +144,16 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # MEDIA_URL is the reference URL for browser to access the files over Http.
 MEDIA_URL = '/media/'
 
+GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY')
+
+
 LOCATION_FIELD = {
 'map.provider': 'google',
 'map.zoom': 8,
 'search.provider': 'google',
 'search.suffix': '',
 'provider.google.api': '//maps.google.com/maps/api/js?sensor=false',
-'provider.google.api_key': 'GOOGLE_API_KEY',
+'provider.google.api_key': GOOGLE_API_KEY,
 'provider.google.api_libraries': '',
 'provider.google.map.type': 'ROADMAP',
 }
