@@ -15,7 +15,8 @@ urlpatterns = [
     path('search/', UserSearchResultsView.as_view(), name='user_search_results'),
     path('<pk>/update', OrganismUpdate.as_view(), name='edit'),
     path('<pk>/delete', OrganismDelete.as_view(), name='delete'),
-    path('user_organisms', views.user_organisms, name = 'user_organisms')
+    path('user_organisms', views.user_organisms, name = 'user_organisms'),
+    path('about', views.about, name='about')
    
     
 ]
