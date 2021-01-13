@@ -22,6 +22,10 @@
 * Reference link for how I added the ability for users to upload images. Referenced in multiple files
 ### [views.py in natureShareApp:](https://stackoverflow.com/a/8595758/14263621)
 * Reference link for how I added the ability for users to only edit their own organisms and not other users' organisms
+### [organism_detail.html in templates:](https://developers.google.com/maps/documentation/javascript/adding-a-google-map#all)
+* Reference link for how I added google map to my template
+### [organism_detail.html in templates:](https://www.geeksforgeeks.org/how-to-insert-a-javascript-variable-inside-href-attribute/)
+* Reference link for how I manipulated a script tag to use django secret key
 
 
 # Python Libraries
