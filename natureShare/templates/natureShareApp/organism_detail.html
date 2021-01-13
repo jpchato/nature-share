@@ -74,7 +74,7 @@
 
     <p>Uploaded by {{organism.user}} </p>
 
-    <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text={{organism.name}} {% url 'organism-detail' organism.id %}" data-size="large">
+    <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text={{organism.name}} https://nature-share.herokuapp.com/{{organism.id}}" data-size="large">
         Share Your Organism to Twitter
     </a>
     {% if user == organism.user %}
