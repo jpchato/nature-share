@@ -29,9 +29,11 @@
             <a href="{% url 'organism_images' %}">Organism Images</a>
             <a href="{% url 'logout' %}">Logout</a>
             <a href="{% url 'user_organisms' %}">My Organisms</a>
+            <a href="{% url 'about' %}">About natureShare</a>
         {% else %}
             <a href="{% url 'login' %}">Login</a> 
             <a href="{% url 'register' %}">Register</a>
+            <a href="{% url 'about' %}">about natureShare</a>
         {% endif %}
     </nav>
     {% block content %}
