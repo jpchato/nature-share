@@ -131,4 +131,5 @@ def user_organisms(request):
     # rendering the users organisms to user_organisms.html
     return render(request, 'natureShareApp/user_organisms.html', {'organisms' : organisms})
     
-    
+def about(request):
+    return render(request, 'natureShareApp/about.html') 

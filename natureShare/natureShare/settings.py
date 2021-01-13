@@ -12,22 +12,23 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
-import dotenv
+# import dotenv
 
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
-dotenv_file = os.path.join(BASE_DIR, ".env")
-if os.path.isfile(dotenv_file):
-    dotenv.load_dotenv(dotenv_file)
+# dotenv_file = os.path.join(BASE_DIR, ".env")
+# if os.path.isfile(dotenv_file):
+#     dotenv.load_dotenv(dotenv_file)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
+# SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -80,7 +81,7 @@ TEMPLATES = [
     },
 ]
 
-# WSGI_APPLICATION = 'natureShare.wsgi.application'
+WSGI_APPLICATION = 'natureShare.wsgi.application'
 
 
 # Database
@@ -144,7 +145,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # MEDIA_URL is the reference URL for browser to access the files over Http.
 MEDIA_URL = '/media/'
 
-GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY')
+# GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY')
+GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
+print(GOOGLE_API_KEY)
 
 
 LOCATION_FIELD = {
