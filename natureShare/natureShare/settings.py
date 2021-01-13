@@ -81,7 +81,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'natureShare.wsgi.application'
+# WSGI_APPLICATION = 'natureShare.wsgi.application'
 
 
 # Database
