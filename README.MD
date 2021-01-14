@@ -1,5 +1,20 @@
 # natureShare
-* project level
+* An app that allows users to share information about organisms they find in nature.
+
+# Motivation
+* This is a project my wife and I came up with the idea that it could help her keep track of where she finds edible mushrooms and other foraging foods in the forests of the PNW.
+
+# Build Status
+* Currently deployed on Heroku
+
+# Code Style
+* Python, JS, vue.js, and Django syntax
+
+# Screenshots
+* Desktop View
+* ![natureShare Desktop View](wireframe/natureShare.PNG)
+* Mobile View
+* ![natureShare Mobile View](wireframe/natureShareMobile.PNG)
 
 # natureShareApp
 * app that allows CRUD of organisms from django Organism model
