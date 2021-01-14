@@ -62,4 +62,3 @@
 * six==1.15.0
 * sqlparse==0.4.1
 * whitenoise==5.2.0
-
