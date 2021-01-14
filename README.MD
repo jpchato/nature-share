@@ -16,6 +16,13 @@
 * Mobile View
 * ![natureShare Mobile View](wireframe/natureShareMobile.PNG)
 
+# Features
+* Users are able to upload images and accompanying data relative to the image. 
+* Users can search by ecosystem type. Users can view all organisms but they can only edit and delete their own organisms. 
+* Users can share images to twitter with the organism title and link to the detail view of that organism.
+* Users are able to register accounts to login and logout.
+* Users can use google map to add lat/lon data for image
+
 # natureShareApp
 * app that allows CRUD of organisms from django Organism model
 
@@ -43,7 +50,7 @@
 * Reference link for how I manipulated a script tag to use django secret key
 
 
-# Python Libraries
+# Python Libraries to Install
 * asgiref==3.3.1
 * Django==3.1.4
 * django-geoposition==0.3.0
