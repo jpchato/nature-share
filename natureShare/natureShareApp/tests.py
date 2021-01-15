@@ -1,10 +1,12 @@
+import datetime
 from django.test import TestCase
 from natureShareApp.models import Organism
+from django.utils import timezone
 
 class OrganismTestCase(TestCase):
     def setUp(self):
         Organism.objects.create(name="lion")
-        Organism.objects.create(name="cat")
+        Organism.objects.create(date=datetime.now)
 
     def test_name_label(self):
         organism = Organism.objects.get(id=1)
