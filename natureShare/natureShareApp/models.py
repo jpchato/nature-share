@@ -54,7 +54,8 @@ class Organism(models.Model):
         default=datetime.now
         )
 
-    user = models.ForeignKey(get_user_model(), on_delete = models.CASCADE, default = '')
+    # user = models.ForeignKey(get_user_model(), on_delete = models.CASCADE, default = '')
+    user = models.ForeignKey(get_user_model(), on_delete = models.CASCADE, default = '', null = True, blank = True)
     
     def __str__(self):
         return self.name
