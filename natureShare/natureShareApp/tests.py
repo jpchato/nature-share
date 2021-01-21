@@ -1,8 +1,11 @@
 from datetime import datetime
-from django.test import TestCase
+from django.test import TestCase, Client
+from django.views.generic.detail import SingleObjectTemplateResponseMixin
 from natureShareApp.models import Organism
 from django.utils import timezone
 from django.urls import reverse
+from django.test.utils import setup_test_environment
+
 from natureShareApp.forms import OrganismForm
 
 # Testing model
@@ -48,7 +51,7 @@ class OrganismTestCase(TestCase):
         weather_label = organism._meta.get_field('weather').verbose_name
         self.assertEqual(weather_label, 'weather')
 
-# Testing Views
+# Model Test
 class OrganismViewTest(TestCase):
     def create_organism(self, name='big kitty', ecosystem='Tropical Rainforest'):
         return Organism.objects.create(name=name, ecosystem=ecosystem)
@@ -57,13 +60,16 @@ class OrganismViewTest(TestCase):
         w = self.create_organism()
         self.assertTrue(isinstance(w, Organism))
         self.assertEqual('big kitty', w.name)
+        self.assertEqual('Tropical Rainforest', w.ecosystem)
 
-# class WhateverTest(TestCase):
+# class OrganismViewTestDjangoDocs(self):
+#     def create_organism(name, ecosystem):
+#         return Organism.objects.create(name='CJ The Dog', ecosystem='Other')
 
-#     def create_whatever(self, title="only a test", body="yes, this is only a test"):
-#         return Whatever.objects.create(title=title, body=body, created_at=timezone.now())
+#     def test_no_organisms(self):
+#         response = self.client.get(reverse(''))
 
-#     def test_whatever_creation(self):
-#         w = self.create_whatever()
-#         self.assertTrue(isinstance(w, Whatever))
-#         self.assertEqual(w.__unicode__(), w.title)
+# class OrganismDetailViewTests(TestCase):
+#     def test_future_organism(self):
+#         future_organism = Organism.objects.create(name='CJ', ecosystem='Other')
+#         response = self.client.get(reverse(''))
