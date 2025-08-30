@@ -1,3 +1,5 @@
+python /home/jpchato/nature-share/natureShare/manage.py runserver
+
 # natureShare
 * An app that allows users to share information about organisms they find in nature.
 

@@ -12,6 +12,15 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import redirect_to_login
 from django.http import HttpResponse, HttpResponseRedirect
 import os
+import dotenv
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
+
+dotenv_file = os.path.join(BASE_DIR, ".env")
+if os.path.isfile(dotenv_file):
+    dotenv.load_dotenv(dotenv_file)
+
 
 
 # Create your views here.
@@ -57,7 +66,7 @@ class OrganismDetailView(generic.DetailView):
     
 
     def get_context_data(self, *args, **kwargs):
-        GOOGLE_API_KEY=os.environ.get('GOOGLE_API_KEY')
+        GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
         context = super(OrganismDetailView, self).get_context_data(*args, **kwargs)
         context['GOOGLE_API_KEY'] = GOOGLE_API_KEY
         return context
