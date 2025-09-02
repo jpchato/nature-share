@@ -19,7 +19,7 @@
     {% for organism in organism_images %} 
             <div> 
                 <a href="{% url 'organism-detail' organism.id %}">{{ organism.name }} </a><br>
-                <img src="{{ organism.picture.url }}" /> 
+                <img src="{{ organism.picture.url }}" alt="{{ organism.name }}" /> 
             </div> 
     {% endfor %} 
   

@@ -1,5 +1,3 @@
-python /home/jpchato/nature-share/natureShare/manage.py runserver
-
 # natureShare
 * An app that allows users to share information about organisms they find in nature.
 
@@ -24,6 +22,16 @@ python /home/jpchato/nature-share/natureShare/manage.py runserver
 * Users can share images to twitter with the organism title and link to the detail view of that organism.
 * Users are able to register accounts to login and logout.
 * Users can use google map to add lat/lon data for image
+
+## Local Setup
+- Create and activate a virtual environment.
+- Install dependencies: `pip install -r natureShare/requirements.txt`
+- Create your env file: `cp natureShare/.env.example natureShare/.env` and fill values.
+- Run the server: `python natureShare/manage.py runserver`
+
+Notes:
+- Do not commit `natureShare/.env` (already gitignored).
+- Generate a new Django secret key: `python -c "from django.core.management.utils import get_random_secret_key as g; print(g())"`
 
 # natureShareApp
 * app that allows CRUD of organisms from django Organism model

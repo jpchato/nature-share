@@ -214,3 +214,8 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Project artifacts
+# Uploaded media and collected static files should not be tracked
+natureShare/media/
+natureShare/staticfiles/

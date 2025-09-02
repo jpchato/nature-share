@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
 from .models import Organism
 from .forms import *
 from django.views.generic import TemplateView, ListView

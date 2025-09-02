@@ -1,5 +1,0 @@
-libmysqlclient-dev
-libpq-dev
-build-essential
-libjpeg-dev
-zlib1g-dev
