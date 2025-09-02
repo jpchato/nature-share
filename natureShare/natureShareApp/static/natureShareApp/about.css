@@ -1,0 +1,13 @@
+/* About page enhancements */
+.about-hero {
+  margin-bottom: 16px;
+  padding: 18px 16px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(76,107,88,0.15), rgba(95,154,165,0.15));
+}
+.about-hero .sub { color: #4b605b; margin-top: 6px; }
+
+.about-grid { align-items: start; }
+.about-list { margin: 8px 0 0 18px; }
+.about-actions .button { margin-right: 8px; display: inline-block; }
+.muted { color: #4b605b; margin-top: 8px; }

@@ -1,24 +1,46 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
 {% load static %}
+<link rel="stylesheet" href="{% static 'natureShareApp/about.css' %}">
 
-<link rel="stylesheet" type="text/css" href="{% static 'natureShareApp/home_style.css' %}">
-<script type="text/javascript" src="{% static 'natureShareApp/home.js' %}"></script>
+<section class="hero about-hero">
+  <h1>About natureShare</h1>
+  <p>We are the universe experiencing itself.</p>
+  <p class="sub">A simple place to log outdoor discoveries.</p>
+  </section>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <p>The app natureShare is an app where users can upload images of organisms they discover in nature to share with others. Image and name are mandatory but other fields are optional</p>
-    <p>This app was built with Python, Javascript, Django, Vue.js, and cusom built CSS.</p>
-    <p>Please have fun, please keep the content uploaded pertininent to organisms discovered on your adventures.</p>
-    <p>Would like to give thanks to PDX Code Guild and my instructor Sarah Beth for helping me develop this app.</p>
-</body>
-</html>
-{% endblock %} 
+<div class="grid cols-2 about-grid">
+  <div class="card">
+    <h2>What natureShare Is</h2>
+    <p>natureShare helps you capture what you find outdoors — a photo, a few details, and a pin on the map — so you can revisit and learn from your discoveries.</p>
+  </div>
+
+  <div class="card">
+    <h2>About Me</h2>
+    <p><strong>Jesse Pena</strong> — Portland, Oregon.</p>
+    <p>Infrastructure Engineering Advisor (InfraCode, Cigna). I build Python automations for enterprise storage (NetApp, XtremIO, PowerMax/VMAX, Infinidat), zoning, and integrations using REST APIs and Pandas. I also work with Splunk for monitoring/alerting and ServiceNow for workflow automation. B.S. from The Evergreen State College (Ecology); transitioned to tech through hands‑on, project‑based learning.</p>
+    <p><em>Professional problem solver. Python is my tool of choice.</em></p>
+  </div>
+</div>
+
+<div class="card">
+  <h2>Guidelines</h2>
+  <ul class="about-list">
+    <li>Share organisms you encounter outdoors; keep uploads relevant and respectful.</li>
+    <li>Respect wildlife and habitats; avoid disturbance and follow local laws.</li>
+    <li>Safety first. Foraging or tasting anything you find is at your own risk.</li>
+    <li><strong>Edibility claims are not verified.</strong> Always consult multiple trusted sources before consuming any wild food.</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h2>What to Do Next</h2>
+  <p class="about-actions">
+    <a class="button" href="{% url 'home' %}">Upload an organism</a>
+    <a class="button" href="{% url 'organism_images' %}">Browse images</a>
+  </p>
+  <p>Have a project in mind or just want to chat? Reach out via the links in the footer.</p>
+  <p class="muted">Originally built as my capstone at PDX Code Guild; continuously evolving while I explore new technology.</p>
+ 
+{% endblock %}
