@@ -214,3 +214,10 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Project artifacts (Django)
+# Uploaded media and collected static files should not be tracked
+natureShare/media/
+natureShare/staticfiles/
+# Local dev database
+natureShare/db.sqlite3
