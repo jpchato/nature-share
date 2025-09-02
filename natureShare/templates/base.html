@@ -1,8 +1,10 @@
+{% load static %}
 <title>natureShare</title>
 <head>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'natureShareApp/theme.css' %}">
     
     <style>
         header {font-family: 'Abril Fatface', cursive;}
@@ -11,7 +13,7 @@
 </head>
 <body>
     <header>
-        natureShare
+        🌲 natureShare
     </header>
     
     <nav>
@@ -36,11 +38,13 @@
             <a href="{% url 'about' %}">about natureShare</a>
         {% endif %}
     </nav>
+    <main class="container">
     {% block content %}
     {% endblock %}
+    </main>
     <footer>
-        <a href="https://www.linkedin.com/in/jessepena4/">LinkedIn</a>
-        <a href="https://github.com/jpchato">GitHub</a>
-        <a href="https://twitter.com/jpchato">Twitter</a>
+        <a href="https://www.linkedin.com/in/jessepena4/" rel="noopener noreferrer" target="_blank">LinkedIn</a>
+        <a href="https://github.com/jpchato" rel="noopener noreferrer" target="_blank">GitHub</a>
+        <a href="https://twitter.com/jpchato" rel="noopener noreferrer" target="_blank">Twitter</a>
     </footer>
 </body>

@@ -3,28 +3,16 @@
 {% block content %}
 {% load static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'natureShareApp/images_style.css' %}">
+<h1>Organism Images</h1>
 
-<!DOCTYPE html> 
-<html lang="en"> 
-<head> 
-    <meta charset="UTF-8"> 
-    <title>Organism Images</title> 
-  
-    <meta name="viewport" content="width=device-width, initial-scale=1"> 
-     
-</head> 
-<body> 
-  
-    {% for organism in organism_images %} 
-            <div> 
-                <a href="{% url 'organism-detail' organism.id %}">{{ organism.name }} </a><br>
-                <img src="{{ organism.picture.url }}" /> 
-            </div> 
-    {% endfor %} 
-  
-</body> 
-</html>
+<div class="grid auto">
+    {% for organism in organism_images %}
+        <div class="card">
+            <a href="{% url 'organism-detail' organism.id %}"><strong>{{ organism.name }}</strong></a><br>
+            <img src="{{ organism.picture.url }}" alt="{{ organism.name }}" />
+        </div>
+    {% endfor %}
+</div>
 
 <!-- https://www.geeksforgeeks.org/python-uploading-images-in-django/ -->
 {% endblock %}

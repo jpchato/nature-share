@@ -4,20 +4,14 @@
 {% block content %}
 {% load static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'natureShareApp/home_style.css' %}">
-<script type="text/javascript" src="{% static 'natureShareApp/home.js' %}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
-<!DOCTYPE html> 
-<html lang="en"> 
-<head>
-    <meta charset="UTF-8"> 
-    <title>natureShare</title> 
-</head> 
+<script type="text/javascript" src="{% static 'natureShareApp/home.js' %}"></script>
 {% if request.user.is_authenticated %}
-<h4>Welcome to natureShare, {{request.user}}</h4>
-<body> 
+<section class="hero">
+  <h2>Welcome to natureShare, {{ request.user }}</h2>
+  <p>Share your finds and pin them on the map.</p>
+</section>
     <form method = "post" enctype="multipart/form-data"> 
         {% csrf_token %} 
         {{ form.as_p }} 
@@ -25,7 +19,7 @@
 
         
         <button type="submit">Upload</button> 
-    </form> 
+    </form>
     <form id='ecosystemInfo'>
         <h4>Information About Ecosystems</h4>
         <button class='ecosystemButton' type='button' onclick="temperateForest()">Temperate Forest</button>
@@ -45,7 +39,5 @@
 {% else %}
 <p style='text-align: center;'>Please log in or register to use natureShare</p>
 {% endif %}
-
-</html> 
 
 {% endblock %}

@@ -2,42 +2,28 @@
 {% block content %}
 {% load static %}
 
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+<h1>User Search Results</h1>
 
-
-<link rel="stylesheet" type="text/css" href="{% static 'natureShareApp/search_results.css' %}">
-<h1>Search Results</h1>
-
-
-{% for organism in object_list %}
-<div>
-  <h1>
-    {{ organism.name }}
-  </h1>
-  <img src="{{ organism.picture.url }}" alt="{{ organism.name }}" /> 
-  <p>
-    edible: {{ organism.edibility }}
-  </p>
-  <p>
-    {{ organism.ecosystem }}
-  </p>
-  <p>
-    {{ organism.weather }}
-  </p>
-  <p>
-    {{ organism.date }}
-  </p>
-</div>
-{% endfor %}
+{% if object_list %}
+<div class="grid auto">
+  {% for organism in object_list %}
+  <div class="card">
+    <strong>{{ organism.name }}</strong>
+    <img src="{{ organism.picture.url }}" alt="{{ organism.name }}" />
+    <p>edible: {{ organism.edibility }}</p>
+    <p>{{ organism.ecosystem }}</p>
+    <p>{{ organism.weather }}</p>
+    <p>{{ organism.date }}</p>
+  </div>
+  {% endfor %}
+  </div>
+{% else %}
+  <p>No results found.</p>
+{% endif %}
 
 <form action="{% url 'user_search_results' %}" method="get">
-  <input name="q" type="text" placeholder="Search by ecosystem">
-</form>
-  
-
-
-
-
+  <input name="q" type="text" placeholder="Search by username">
+  <button type="submit">Search</button>
+  </form>
 
 {% endblock %}
