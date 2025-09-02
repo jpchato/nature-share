@@ -56,7 +56,7 @@ def home(request):
 def display_images(request):
     # if the request method is a get, all the organisms in my model are retrieved and displayed on our images.html page
     if request.method == 'GET':
-        plural_organism = Organism.objects.all()
+        plural_organism = Organism.objects.all().order_by('-date')
         # return render((request, 'natureShareApp/images.html', {'organism_images' : plural_organism}))
         return render(request, 'natureShareApp/images.html', {'organism_images' : plural_organism})
 
@@ -97,9 +97,10 @@ class UserSearchResultsView(ListView):
     def get_queryset(self):
         # Setting our query using Q that we imported
         query = self.request.GET.get('q')
-        # our object list filetered to contain ecosystem
-        object_list = Organism.objects.filter(Q(user__icontains=query))
-        return object_list
+        if not query:
+            return Organism.objects.none()
+        # Filter by username on the related user
+        return Organism.objects.filter(Q(user__username__icontains=query))
 
 # Class based view that allows users to edit their own content
 class OrganismUpdate(UpdateView):

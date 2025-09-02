@@ -13,7 +13,7 @@ class OrganismForm(forms.ModelForm):
         # grabs our model
         model = Organism
         # all these fields will be rendered on the form, except user which we exclude
-        fields = ['picture', 'name', 'edibility', 'ecosystem', 'weather', 'date', 'location', 'user']
+        fields = ['picture', 'name', 'edibility', 'ecosystem', 'weather', 'date', 'location']
         # excluding user prevents users from changing the user
         exclude = ['user']
         # date picker widget
