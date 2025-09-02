@@ -1,66 +1,121 @@
-python /home/jpchato/nature-share/natureShare/manage.py runserver
-
 # natureShare
-* An app that allows users to share information about organisms they find in nature.
+An app for sharing organisms you find in nature — what they are, where you found them, and useful context like ecosystem and weather.
 
-# Motivation
-* This is a project my wife and I came up with the idea that it could help her keep track of where she finds edible mushrooms and other foraging foods in the forests of the PNW.
+## Why
+This started as a way for us to keep track of edible mushrooms and other foraged foods around the PNW. It grew into a simple social logbook: upload a photo, capture some details, and find things later.
 
-# Build Status
-* Currently deployed on Heroku
+## Features
+- Upload photos with metadata: name, edibility, ecosystem, weather, date, and location (with a map picker)
+- Browse all organisms; edit/delete only your own
+- Search by ecosystem type
+- User accounts: register, login, logout
+- Share a detail view to Twitter (title + link)
 
-# Code Style
-* Python, JS, vue.js, and Django syntax
+## Screenshots
+- Desktop: ![natureShare Desktop View](wireframe/natureShare.PNG)
+- Mobile: ![natureShare Mobile View](wireframe/natureShareMobile.PNG)
 
-# Screenshots
-* Desktop View
-* ![natureShare Desktop View](wireframe/natureShare.PNG)
-* Mobile View
-* ![natureShare Mobile View](wireframe/natureShareMobile.PNG)
+## Tech Stack
+- Backend: Django 3.1, SQLite (dev)
+- Frontend: Django templates, vanilla JS, jQuery
+- Maps: `django-location-field` with Google Maps
+- Static files: WhiteNoise
+- Deploy: Heroku (Procfile + runtime.txt)
 
-# Features
-* Users are able to upload images and accompanying data relative to the image. 
-* Users can search by ecosystem type. Users can view all organisms but they can only edit and delete their own organisms. 
-* Users can share images to twitter with the organism title and link to the detail view of that organism.
-* Users are able to register accounts to login and logout.
-* Users can use google map to add lat/lon data for image
+## Requirements
+- Python 3.8+
+- A Google Maps API key (optional for basic usage; required for location picker)
 
-# natureShareApp
-* app that allows CRUD of organisms from django Organism model
+## Quick Start
+1) Create a virtualenv and install deps
+```
+pip install -r natureShare/requirements.txt
+```
 
-# accounts
-* app for creating and managing users
+2) Configure environment
+```
+cp natureShare/.env.example natureShare/.env
+```
+Set the following in `natureShare/.env`:
+- `DJANGO_SECRET_KEY` — generate one:
+  ```
+  python -c "from django.core.management.utils import get_random_secret_key as g; print(g())"
+  ```
+- `DJANGO_DEBUG` — `True` for local dev
+- `DJANGO_ALLOWED_HOSTS` — `127.0.0.1,localhost` for local dev
+- `GOOGLE_API_KEY` — if you want the map picker
 
-# Reference Links
-### [settings.py:](https://www.geeksforgeeks.org/python-uploading-images-in-django/)
-* Reference link for how I added the ability for users to upload images.
-### [forms.py:](https://stackoverflow.com/a/35968816/14263621)
-* Reference link for how I added classed based views in the views.py
-### [models.py:](https://stackoverflow.com/a/35968816/14263621)
-* Reference link for how I set the default google map coordinates to point to Portland, OR
-### [urls.py in natureShareApp:](https://learndjango.com/tutorials/django-search-tutorial)
-* Reference link for how I created a search bar
-### [views.py in natureShareApp:](https://stackoverflow.com/a/62727319/14263621)
-* Reference link for how I created a classed based view user model without showing the user
-### [views.py in natureShareApp:](https://www.geeksforgeeks.org/python-uploading-images-in-django/)
-* Reference link for how I added the ability for users to upload images. Referenced in multiple files
-### [views.py in natureShareApp:](https://stackoverflow.com/a/8595758/14263621)
-* Reference link for how I added the ability for users to only edit their own organisms and not other users' organisms
-### [organism_detail.html in templates:](https://developers.google.com/maps/documentation/javascript/adding-a-google-map#all)
-* Reference link for how I added google map to my template
-### [organism_detail.html in templates:](https://www.geeksforgeeks.org/how-to-insert-a-javascript-variable-inside-href-attribute/)
-* Reference link for how I manipulated a script tag to use django secret key
+3) Initialize the database
+```
+python natureShare/manage.py migrate
+python natureShare/manage.py createsuperuser
+```
 
+4) Run the app
+```
+python natureShare/manage.py runserver
+```
 
-# Python Libraries to Install
-* asgiref==3.3.1
-* Django==3.1.4
-* django-geoposition==0.3.0
-* django-location-field==2.1.0
-* Pillow==8.0.1
-* python-dotenv==0.15.0
-    * only used for development to hide keys
-* pytz==2020.4
-* six==1.15.0
-* sqlparse==0.4.1
-* whitenoise==5.2.0
+Open http://127.0.0.1:8000 and register or login.
+
+## Using the App
+- Home: upload an organism photo and details; the location widget lets you drop a pin
+- Images: view all uploaded organisms (everyone’s)
+- Detail: see one organism, with map and actions to share
+- My Organisms: quick list of only your uploads, with edit/delete
+- Search: filter by ecosystem type
+
+## Configuration Notes
+- `ALLOWED_HOSTS` is configurable via `DJANGO_ALLOWED_HOSTS` (comma‑separated)
+- Static files are served by WhiteNoise in production (`CompressedManifestStaticFilesStorage`)
+- Media uploads (user images) are stored at `natureShare/media/` in development and are not tracked by Git
+- The map widget scripts are injected by `{{ form.media }}` on the home page. Keep jQuery and the Google Maps API loading before those injected scripts. If the map breaks, check script order and your `GOOGLE_API_KEY` first.
+
+## Development
+- Migrations
+  ```
+  python natureShare/manage.py makemigrations
+  python natureShare/manage.py migrate
+  ```
+- Running tests (placeholder tests included)
+  ```
+  python natureShare/manage.py test
+  ```
+- Admin
+  ```
+  python natureShare/manage.py createsuperuser
+  ```
+
+## Deployment (Heroku)
+This repo includes `Procfile`, `runtime.txt`, `requirements.txt`, and uses WhiteNoise.
+
+Configure config vars:
+- `DJANGO_SECRET_KEY`
+- `DJANGO_DEBUG=False`
+- `DJANGO_ALLOWED_HOSTS=your-domain.com`
+- `GOOGLE_API_KEY` (optional, enables map widget)
+
+Then:
+```
+python natureShare/manage.py collectstatic --noinput
+```
+Heroku’s deploy pipeline will run collectstatic automatically if configured; WhiteNoise will serve static files.
+
+## Troubleshooting
+- Map not loading
+  - Ensure `GOOGLE_API_KEY` is set and valid
+  - Confirm jQuery and Google Maps load before `{{ form.media }}` on the home page
+- Images not appearing in dev
+  - Ensure `DEBUG=True` so media is served by Django
+  - Files are saved under `natureShare/media/`
+- CSRF errors on form submit
+  - Make sure templates include `{% csrf_token %}` and you’re using the correct domain under `ALLOWED_HOSTS`
+
+## Reference Links
+- Uploading images in Django: https://www.geeksforgeeks.org/python-uploading-images-in-django/
+- Search with Django: https://learndjango.com/tutorials/django-search-tutorial
+- Google Maps JS API: https://developers.google.com/maps/documentation/javascript/adding-a-google-map
+
+## Acknowledgements
+Thanks to the open‑source community and the resources linked above that helped shape this project.
+
