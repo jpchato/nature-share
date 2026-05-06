@@ -1,30 +1,25 @@
 {% extends 'base.html' %}
 
-{% block content %}
+{% block extra_head %}
 {% load static %}
-
 <link rel="stylesheet" type="text/css" href="{% static 'natureShareApp/images_style.css' %}">
+{% endblock %}
 
-<!DOCTYPE html> 
-<html lang="en"> 
-<head> 
-    <meta charset="UTF-8"> 
-    <title>Organism Images</title> 
-  
-    <meta name="viewport" content="width=device-width, initial-scale=1"> 
-     
-</head> 
-<body> 
-  
-    {% for organism in organism_images %} 
-            <div> 
-                <a href="{% url 'organism-detail' organism.id %}">{{ organism.name }} </a><br>
-                <img src="{{ organism.picture.url }}" alt="{{ organism.name }}" /> 
-            </div> 
-    {% endfor %} 
-  
-</body> 
-</html>
-
+{% block content %}
+<h2>Organism Images</h2>
+<div class="image-gallery">
+    {% for organism in organism_images %}
+        <article class="image-card">
+            <a href="{% url 'organism-detail' organism.id %}">
+                {% if organism.picture %}
+                    <img src="{{ organism.picture.url }}" alt="{{ organism.name }}" />
+                {% else %}
+                    <div class="placeholder">No image available</div>
+                {% endif %}
+                <h3>{{ organism.name }}</h3>
+            </a>
+        </article>
+    {% endfor %}
+</div>
 <!-- https://www.geeksforgeeks.org/python-uploading-images-in-django/ -->
 {% endblock %}

@@ -1,13 +1,12 @@
 {% extends 'base.html' %}
-
-
-{% block content %}
 {% load static %}
 
+{% block extra_head %}
 <link rel="stylesheet" type="text/css" href="{% static 'natureShareApp/organism_update.css' %}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{% endblock %}
 
-<!DOCTYPE html> 
+{% block content %}
 <html lang="en"> 
 <head>
     <meta charset="UTF-8"> 

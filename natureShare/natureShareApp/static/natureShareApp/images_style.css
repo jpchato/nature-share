@@ -1,108 +1,112 @@
 /* path 'natureShareApp/images_style.css' */
-@media only screen and (min-width: 768px) {
-    html {
-        background-color: #19270d;
-        color: #818c3c;
-    }
+:root {
+    --bg: #19270d;
+    --surface: #263021;
+    --accent: #c9be86;
+    --text: #f3f3e8;
+    --muted: #9aa07a;
+}
 
-    body {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-    }
+*, *::before, *::after {
+    box-sizing: border-box;
+}
 
-    img {
-        width: 100%;
-        max-width: 100px;
-        max-height: auto;
-        padding-bottom: 25px;
-        margin-top: 10px;
-    }
- 
-    header{
-        text-align: center;
-        font-size: 50px;
-        width: 100%;
-    }
+html {
+    background: var(--bg);
+    color: var(--text);
+}
 
-    nav {
-        text-align: center;
-        margin-top: 10px;
-        margin-bottom: 10px;
-        width: 100%;
-    }
+body {
+    margin: 0;
+    padding: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    min-height: 100vh;
+    background: var(--bg);
+}
 
-    footer{
-        text-align: center;
-        margin-top: 10px;
-        margin-bottom: 10px;
-        width: 100%;
-    }
+h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
 
-    a {
-        color: #72601b;
-        margin-left: 12px;
-        margin-bottom: 10px;
-        margin-top: 10px;
-        
-    }
+.image-gallery {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    max-width: 1200px;
+    margin: 0 auto;
+}
 
-    div {
-        text-align: center;
-        border: solid 2px #72601b; 
-        border-radius: 5px;
-        margin: auto; 
-        /* height: 200px; */
-        max-height: auto;
-        margin-top: 10px;
-        width: 20%;
-    }
+.image-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(201, 190, 134, 0.22);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.18);
+    transition: transform 0.2s ease;
+}
 
-    
+.image-card:hover {
+    transform: translateY(-4px);
+}
+
+.image-card a {
+    display: block;
+    color: var(--text);
+    text-decoration: none;
+}
+
+.image-card h3 {
+    margin: 0;
+    padding: 1rem;
+    font-size: 1.1rem;
+    background: rgba(0, 0, 0, 0.06);
+}
+
+.image-card img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    display: block;
+}
+
+.placeholder {
+    height: 240px;
+    display: grid;
+    place-items: center;
+    color: var(--muted);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+a {
+    color: var(--accent);
+}
+
+nav,
+footer {
+    text-align: center;
+}
+
+nav a,
+footer a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+@media only screen and (max-width: 1024px) {
+    .image-card img {
+        height: 220px;
+    }
 }
 
 @media only screen and (max-width: 767px) {
-    html{
-        background-color: black;
-        color: white;
+    body {
+        padding: 0.75rem;
     }
-    a {
-        color: yellow;
+    .image-card img {
+        height: 180px;
     }
-    nav a {
-        display: block;
-    }
-    header {
-        text-align: center;
-        font-size: xx-large;
-    }
-    nav {
-        text-align: center;
-    }
-    form {
-        display: block;
-        border: solid 1px yellow;
-        max-width: 100%;
-    }
-    footer {
-        text-align: center;
-    }
-    footer a{
-        display: block;
-    }
-    #map_location {
-        max-width: 100%;
-    }
-    img {
-        width: 100%;
-        max-width: 300px;
-        height: auto;
-    }
-    div {
-        border: 1px solid yellow;
-        max-width: 100%;
-        text-align: center;
-        margin-top: 10px;
+    .image-gallery {
+        gap: 0.85rem;
     }
 }

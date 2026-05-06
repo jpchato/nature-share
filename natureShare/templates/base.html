@@ -1,5 +1,7 @@
-<title>natureShare</title>
+<!DOCTYPE html>
+<html>
 <head>
+    <title>natureShare</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
@@ -8,6 +10,7 @@
         header {font-family: 'Abril Fatface', cursive;}
         body    {font-family: 'Montserrat', sans-serif;} 
     </style>
+    {% block extra_head %}{% endblock %}
 </head>
 <body>
     <header>
@@ -15,15 +18,6 @@
     </header>
     
     <nav>
-        <!-- {% if request.user.is_authenticated %}
-            <a href="http://127.0.0.1:8000/">Home</a>
-            <a href="http://127.0.0.1:8000/organism_images">Organism Images</a>
-            <a href="http://127.0.0.1:8000/accounts/logout">Logout</a>
-            <a href="http://127.0.0.1:8000/user_organisms">My Organisms</a>
-        {% else %}
-            <a href="http://127.0.0.1:8000/accounts/login">Login</a> 
-            <a href="http://127.0.0.1:8000/accounts/">Register</a>
-        {% endif %} -->
         {% if request.user.is_authenticated %}
             <a href="{% url 'home' %}">Home</a>
             <a href="{% url 'organism_images' %}">Organism Images</a>
@@ -31,9 +25,10 @@
             <a href="{% url 'user_organisms' %}">My Organisms</a>
             <a href="{% url 'about' %}">About natureShare</a>
         {% else %}
+            <a href="{% url 'home' %}">Home</a>
             <a href="{% url 'login' %}">Login</a> 
             <a href="{% url 'register' %}">Register</a>
-            <a href="{% url 'about' %}">about natureShare</a>
+            <a href="{% url 'about' %}">About natureShare</a>
         {% endif %}
     </nav>
     {% block content %}
@@ -44,3 +39,4 @@
         <a href="https://twitter.com/jpchato" rel="noopener noreferrer" target="_blank">Twitter</a>
     </footer>
 </body>
+</html>

@@ -1,15 +1,30 @@
 {% extends 'base.html' %}
-
-
-{% block content %}
 {% load static %}
 
+{% block extra_head %}
 <link rel="stylesheet" type="text/css" href="{% static 'natureShareApp/user_organisms.css' %}">
-<h2>{{request.user}}'s Organisms</h4>
-{% for organism in organisms %}
-<div> 
-    <a href="{% url 'organism-detail' organism.id %}">{{ organism.name }} </a><br>
-    <img src="{{ organism.picture.url }}" /> 
-</div> 
-{% endfor %}
+{% endblock %}
+
+{% block content %}
+<h2>{{ request.user }}'s Organisms</h2>
+{% if organisms %}
+<div class="organism-gallery">
+    {% for organism in organisms %}
+    <article class="image-card">
+        <a href="{% url 'organism-detail' organism.id %}">
+            {% if organism.picture %}
+            <img src="{{ organism.picture.url }}" alt="{{ organism.name }}">
+            {% else %}
+            <div class="placeholder">No image uploaded</div>
+            {% endif %}
+            <h3>{{ organism.name }}</h3>
+        </a>
+    </article>
+    {% endfor %}
+</div>
+{% else %}
+<div class="card">
+    <p class="muted">You have not added any organisms yet. Start by uploading one from the home page.</p>
+</div>
+{% endif %}
 {% endblock %} 

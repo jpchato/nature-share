@@ -1,35 +1,49 @@
 {% extends 'base.html' %}
 
-
-{% block content %}
+{% block extra_head %}
 {% load static %}
-
 <link rel="stylesheet" type="text/css" href="{% static 'natureShareApp/home_style.css' %}">
 <script type="text/javascript" src="{% static 'natureShareApp/home.js' %}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+{% endblock %}
+
+{% block content %}
 
 <!-- Note: The form below includes {{ form.media }} which injects scripts
      for the location/map widget. jQuery and the Google Maps API must be
      loaded before those injected scripts. Keep the script order as-is. -->
 
-<!DOCTYPE html> 
-<html lang="en"> 
-<head>
-    <meta charset="UTF-8"> 
-    <title>natureShare</title> 
-</head> 
+<div class="organism-gallery">
+    <h2>Organism Gallery</h2>
+    {% if organism_images %}
+        {% for organism in organism_images %}
+            <div class="gallery-item">
+                <a href="{% url 'organism-detail' organism.id %}">
+                    <h3>{{ organism.name }}</h3>
+                    {% if organism.picture %}
+                        <img src="{{ organism.picture.url }}" alt="{{ organism.name }}" />
+                    {% else %}
+                        <div class="placeholder">No image available</div>
+                    {% endif %}
+                </a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No organisms have been shared yet. Be the first to contribute!</p>
+    {% endif %}
+</div>
+
 {% if request.user.is_authenticated %}
-<h4>Welcome to natureShare, {{request.user}}</h4>
-<body> 
-    <form method = "post" enctype="multipart/form-data"> 
+<div class="upload-section">
+    <h4>Welcome to natureShare, {{ request.user }}</h4>
+    <form method="post" enctype="multipart/form-data"> 
         {% csrf_token %} 
         {{ form.as_p }} 
         {{ form.media }}
-
-        
         <button type="submit">Upload</button> 
     </form> 
+    
     <form id='ecosystemInfo'>
         <h4>Information About Ecosystems</h4>
         <button class='ecosystemButton' type='button' onclick="temperateForest()">Temperate Forest</button>
@@ -38,18 +52,19 @@
         <button class='ecosystemButton' type='button' onclick="grassland()">Grassland</button>
         <button class='ecosystemButton' type='button' onclick="taiga()">Taiga</button>
         <button class='ecosystemButton' type='button' onclick="tundra()">Tundra</button>
-        <button class='ecosystemButton' type='button' onclick="chaparral()">chaparral</button>
-        <button class='ecosystemButton' type='button' onclick="ocean()">ocean</button>
+        <button class='ecosystemButton' type='button' onclick="chaparral()">Chaparral</button>
+        <button class='ecosystemButton' type='button' onclick="ocean()">Ocean</button>
     </form> 
     
-<form action="{% url 'search_results' %}" method="get">
-    <h4>Search by Ecosystem Type</h4>
-    <input name="q" type="text" placeholder="Search by ecosystem type">
-</form>
+    <form action="{% url 'search_results' %}" method="get">
+        <h4>Search by Ecosystem Type</h4>
+        <input name="q" type="text" placeholder="Search by ecosystem type">
+    </form>
+</div>
 {% else %}
-<p style='text-align: center;'>Please log in or register to use natureShare</p>
+<div class="guest-prompt">
+    <p style='text-align: center;'><a href="{% url 'login' %}">Log in</a> or <a href="{% url 'register' %}">register</a> to upload organisms and contribute to natureShare!</p>
+</div>
 {% endif %}
-
-</html> 
 
 {% endblock %}

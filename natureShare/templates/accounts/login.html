@@ -1,14 +1,22 @@
 {% extends 'base.html' %}
-
-{% block content %}
 {% load static %}
 
+{% block extra_head %}
 <link rel="stylesheet" type="text/css" href="{% static 'natureShareApp/home_style.css' %}">
+{% endblock %}
 
-    <form  action='' method = 'POST'>
+{% block content %}
+
+    <form class="auth-form" action="" method="POST">
         {% csrf_token %}
-        username: <input type='text' name='username'><br>
-        password: <input type='password' name='password'><br>
-        <input type="submit" value="login">
+        <label>
+            Username
+            <input type="text" name="username">
+        </label>
+        <label>
+            Password
+            <input type="password" name="password">
+        </label>
+        <button type="submit">Login</button>
     </form>
 {% endblock %}

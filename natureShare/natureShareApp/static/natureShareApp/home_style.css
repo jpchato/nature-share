@@ -1,87 +1,245 @@
 /* path 'natureShareApp/home_style.css' */
 /* colors https://www.color-hex.com/color-palette/7321 */
 
-@media only screen and (min-width: 768px) {
-    html {
-        background-color: #19270d;
-        color: #818c3c;
-    }
-
-    header{
-        text-align: center;
-        font-size: 50px;
-    }
-
-    nav {
-        text-align: center;
-        
-    }
-
-    footer{
-        text-align: center;
-    }
-
-    a {
-        color: #72601b;
-        margin-left: 12px;
-    }
-    form {
-        text-align: center;
-        border: solid 2px #72601b;
-        width: 500px;
-        margin: auto;
-        border-radius: 5px;
-        margin-bottom: 10px;
-    }
-    p {
-        text-align: center;
-        font-size: large;
-    }
-    h4 {
-        text-align: center;
-    }
-    button {
-        text-align: center;
-        margin-bottom: 5px;
-    }
-    input {
-        margin-bottom: 5px;
-    }
+:root {
+    --bg: #19270d;
+    --surface: #262e1e;
+    --accent: #c9be86;
+    --muted: #8d9771;
+    --text: #f3f3e8;
+    --card: rgba(255, 255, 255, 0.06);
 }
 
- 
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background: var(--bg);
+}
+
+header {
+    text-align: center;
+    font-size: clamp(2.2rem, 4vw, 3.6rem);
+    letter-spacing: 0.12em;
+    margin: 1.5rem auto 0.5rem;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin: 0 auto 1.5rem;
+    max-width: 1200px;
+    padding: 0 1rem;
+}
+
+nav a,
+a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+a:hover,
+a:focus {
+    color: #fff4d7;
+}
+
+nav a {
+    font-weight: 600;
+}
+
+nav a:hover {
+    color: #f3f3e8;
+}
+
+main,
+.organism-gallery,
+.upload-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.organism-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+    max-width: 1200px;
+}
+
+.organism-gallery h2 {
+    grid-column: 1 / -1;
+    margin: 0 0 0.75rem;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+}
+
+.gallery-item {
+    background: var(--surface);
+    border: 1px solid rgba(201, 190, 134, 0.2);
+    border-radius: 18px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.gallery-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
+}
+
+.gallery-item a {
+    color: var(--text);
+    text-decoration: none;
+    display: block;
+}
+
+.gallery-item h3 {
+    margin: 0;
+    padding: 1rem;
+    font-size: 1.05rem;
+    background: rgba(0, 0, 0, 0.08);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+    max-height: 240px;
+}
+
+.placeholder {
+    min-height: 180px;
+    display: grid;
+    place-items: center;
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--muted);
+}
+
+.upload-section {
+    background: rgba(20, 28, 12, 0.94);
+    border: 1px solid rgba(201, 190, 134, 0.2);
+    border-radius: 20px;
+    padding: 1.8rem;
+    margin-bottom: 2rem;
+}
+
+.upload-section h4,
+.guest-prompt p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+form {
+    display: grid;
+    gap: 1rem;
+    font-size: 0.95rem;
+}
+
+.upload-section button,
+button.ecosystemButton,
+.auth-form button {
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.upload-section button,
+.auth-form button {
+    background: var(--accent);
+    color: #19270d;
+    padding: 0.95rem 1.3rem;
+    font-weight: 700;
+}
+
+.upload-section button:hover {
+    background: #fff4d7;
+}
+
+button.ecosystemButton {
+    background: rgba(201, 190, 134, 0.16);
+    border: 1px solid rgba(201, 190, 134, 0.35);
+    color: var(--text);
+    padding: 0.65rem 1rem;
+}
+
+button.ecosystemButton:hover {
+    background: rgba(201, 190, 134, 0.26);
+}
+
+.upload-section input,
+.upload-section select,
+.upload-section textarea,
+.auth-form input[type='text'],
+.auth-form input[type='password'],
+.auth-form input[type='email'] {
+    width: 100%;
+    max-width: 420px;
+    padding: 0.85rem 1rem;
+    margin: 0.35rem 0 0.95rem;
+    border: 1px solid rgba(201, 190, 134, 0.28);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text);
+    font-size: 1rem;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    max-width: 460px;
+    margin: 1.5rem auto;
+}
+
+.auth-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.95rem;
+}
+
+.auth-form input[type='submit'] {
+    width: fit-content;
+    min-width: 160px;
+}
+
+.guest-prompt a {
+    color: var(--accent);
+    text-decoration: underline;
+}
+
 @media only screen and (max-width: 767px) {
-    html{
-        background-color: black;
-        color: white;
-    }
-    a {
-        color: yellow;
-    }
-    nav a {
-        display: block;
-    }
-    header {
-        text-align: center;
-        font-size: xx-large;
+    body {
+        padding: 0;
     }
     nav {
-        text-align: center;
+        gap: 0.5rem;
     }
-    form {
-        display: block;
-        border: solid 1px yellow;
-        max-width: 100%;
-        text-align: left;
+    .organism-gallery {
+        grid-template-columns: 1fr;
     }
-    footer {
-        text-align: center;
+    .gallery-item img {
+        height: 220px;
     }
-    footer a{
-        display: block;
-    }
-    #map_location {
-        max-width: 100%;
-        
+    .upload-section {
+        padding: 1rem;
     }
 }
+

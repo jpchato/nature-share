@@ -1,14 +1,18 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" type="text/css" href="{% static 'natureShareApp/home_style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'natureShareApp/about.css' %}">
+{% endblock %}
 
 {% block content %}
-{% load static %}
-<link rel="stylesheet" href="{% static 'natureShareApp/about.css' %}">
 
 <section class="hero about-hero">
   <h1>About natureShare</h1>
   <p>We are the universe experiencing itself.</p>
   <p class="sub">A simple place to log outdoor discoveries.</p>
-  </section>
+</section>
 
 <div class="grid cols-2 about-grid">
   <div class="card">
@@ -22,25 +26,26 @@
     <p>Infrastructure Engineering Advisor (InfraCode, Cigna). I build Python automations for enterprise storage (NetApp, XtremIO, PowerMax/VMAX, Infinidat), zoning, and integrations using REST APIs and Pandas. I also work with Splunk for monitoring/alerting and ServiceNow for workflow automation. B.S. from The Evergreen State College (Ecology); transitioned to tech through hands‑on, project‑based learning.</p>
     <p><em>Professional problem solver. Python is my tool of choice.</em></p>
   </div>
+
+  <div class="card">
+    <h2>Guidelines</h2>
+    <ul class="about-list">
+      <li>Share organisms you encounter outdoors; keep uploads relevant and respectful.</li>
+      <li>Respect wildlife and habitats; avoid disturbance and follow local laws.</li>
+      <li>Safety first. Foraging or tasting anything you find is at your own risk.</li>
+      <li><strong>Edibility claims are not verified.</strong> Always consult multiple trusted sources before consuming any wild food.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>What to Do Next</h2>
+    <p class="about-actions">
+      <a class="button" href="{% url 'home' %}">Upload an organism</a>
+      <a class="button" href="{% url 'organism_images' %}">Browse images</a>
+    </p>
+    <p>Have a project in mind or just want to chat? Reach out via the links in the footer.</p>
+    <p class="muted">Originally built as my capstone at PDX Code Guild; continuously evolving while I explore new technology.</p>
+  </div>
 </div>
 
-<div class="card">
-  <h2>Guidelines</h2>
-  <ul class="about-list">
-    <li>Share organisms you encounter outdoors; keep uploads relevant and respectful.</li>
-    <li>Respect wildlife and habitats; avoid disturbance and follow local laws.</li>
-    <li>Safety first. Foraging or tasting anything you find is at your own risk.</li>
-    <li><strong>Edibility claims are not verified.</strong> Always consult multiple trusted sources before consuming any wild food.</li>
-  </ul>
-</div>
-
-<div class="card">
-  <h2>What to Do Next</h2>
-  <p class="about-actions">
-    <a class="button" href="{% url 'home' %}">Upload an organism</a>
-    <a class="button" href="{% url 'organism_images' %}">Browse images</a>
-  </p>
-  <p>Have a project in mind or just want to chat? Reach out via the links in the footer.</p>
-  <p class="muted">Originally built as my capstone at PDX Code Guild; continuously evolving while I explore new technology.</p>
- 
 {% endblock %}

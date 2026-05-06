@@ -1,33 +1,28 @@
 {% extends 'base.html' %}
-{% block content %}
 {% load static %}
 
+{% block extra_head %}
+<link rel="stylesheet" type="text/css" href="{% static 'natureShareApp/search_results.css' %}">
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+{% endblock %}
 
-
-<link rel="stylesheet" type="text/css" href="{% static 'natureShareApp/search_results.css' %}">
+{% block content %}
 <h1>Search Results</h1>
 
 
 {% for organism in object_list %}
 <div>
-  <h1>
-    {{ organism.name }}
-  </h1>
-  <img src="{{ organism.picture.url }}" /> 
-  <p>
-    edible: {{ organism.edibility }}
-  </p>
-  <p>
-    {{ organism.ecosystem }}
-  </p>
-  <p>
-    {{ organism.weather }}
-  </p>
-  <p>
-    {{ organism.date }}
-  </p>
+  <h1>{{ organism.name }}</h1>
+  {% if organism.picture %}
+    <img src="{{ organism.picture.url }}" alt="{{ organism.name }}" />
+  {% else %}
+    <div class="placeholder">No image available</div>
+  {% endif %}
+  <p>edible: {{ organism.edibility }}</p>
+  <p>{{ organism.ecosystem }}</p>
+  <p>{{ organism.weather }}</p>
+  <p>{{ organism.date }}</p>
 </div>
 {% endfor %}
 

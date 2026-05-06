@@ -12,34 +12,37 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
-import dotenv
 
+import dj_database_url
+import dotenv
+from django.core.exceptions import ImproperlyConfigured
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 
-dotenv_file = os.path.join(BASE_DIR, ".env")
-if os.path.isfile(dotenv_file):
+dotenv_file = BASE_DIR / '.env'
+if dotenv_file.exists():
     dotenv.load_dotenv(dotenv_file)
 
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
+# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
-# SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
+DEBUG = str(os.environ.get('DJANGO_DEBUG', 'False')).lower() in {'true', '1', 'yes'}
+if not SECRET_KEY and not DEBUG:
+    raise ImproperlyConfigured('DJANGO_SECRET_KEY must be set in production.')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+ALLOWED_HOSTS = [
+    host.strip()
+    for host in os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1,testserver').split(',')
+    if host.strip()
+]
 
-# Allow override via environment, with safe defaults for current deploy
-ALLOWED_HOSTS = os.environ.get(
-    'DJANGO_ALLOWED_HOSTS',
-    'nature-share.herokuapp.com,127.0.0.1'
-).split(',')
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
 
 
 # Application definition
@@ -89,13 +92,12 @@ WSGI_APPLICATION = 'natureShare.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
+# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': str(BASE_DIR / 'db.sqlite3'),
-    }
+    'default': dj_database_url.config(
+        default=f'sqlite:///{BASE_DIR / "db.sqlite3"}',
+        conn_max_age=int(os.environ.get('DATABASE_CONN_MAX_AGE', '600')),
+    )
 }
 
 
@@ -119,7 +121,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/3.1/topics/i18n/
+# https://docs.djangoproject.com/en/4.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
@@ -133,37 +135,57 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.1/howto/static-files/
-
-PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+# https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
-# STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
-# The absolute path to the directory where collectstatic will collect static files for deployment.
-STATIC_ROOT = BASE_DIR / 'staticfiles'  #. os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'natureShareApp/static')]
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [BASE_DIR / 'natureShareApp' / 'static']
 
 # Images: https://www.geeksforgeeks.org/python-uploading-images-in-django/
-# MEDIA_ROOT is for server path to store files in the computer.
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-# MEDIA_URL is the reference URL for browser to access the files over Http.
+MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
 
-# GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY')
 GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
 
-
 LOCATION_FIELD = {
-'map.provider': 'google',
-'map.zoom': 8,
-'search.provider': 'google',
-'search.suffix': '',
-'provider.google.api': '//maps.google.com/maps/api/js?sensor=false',
-'provider.google.api_key': GOOGLE_API_KEY,
-'provider.google.api_libraries': '',
-'provider.google.map.type': 'ROADMAP',
+    'map.provider': 'google',
+    'map.zoom': 8,
+    'search.provider': 'google',
+    'search.suffix': '',
+    'provider.google.api': '//maps.google.com/maps/api/js?sensor=false',
+    'provider.google.api_key': GOOGLE_API_KEY,
+    'provider.google.api_libraries': '',
+    'provider.google.map.type': 'ROADMAP',
 }
 
-# Simplified static file serving.
-# https://warehouse.python.org/project/whitenoise/
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '[{levelname}] {asctime} {name}: {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': os.environ.get('DJANGO_LOG_LEVEL', 'INFO'),
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.environ.get('DJANGO_LOG_LEVEL', 'INFO'),
+            'propagate': False,
+        },
+    },
+}
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'

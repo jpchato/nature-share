@@ -1,143 +1,122 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import Organism
-from .forms import *
-from django.views.generic import TemplateView, ListView
-from django.views.generic.detail import DetailView
-from django.views import generic
-from django.db.models import Q
-from django.views.generic.edit import UpdateView, DeleteView
-from django.contrib import messages 
+import logging
+
+from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.views import redirect_to_login
-from django.http import HttpResponse, HttpResponseRedirect
-import os
-import dotenv
-from pathlib import Path
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+from django.views.generic import DetailView, ListView
+from django.views.generic.edit import UpdateView, DeleteView
+from django.db.models import Q
 
-BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
+from .forms import OrganismForm
+from .models import Organism
 
-dotenv_file = os.path.join(BASE_DIR, ".env")
-if os.path.isfile(dotenv_file):
-    dotenv.load_dotenv(dotenv_file)
-
+logger = logging.getLogger(__name__)
 
 
-# Create your views here.
-
-# View for my home page, login_required decorator prevents rendering if user is not logged in, will redirect to login filed if user is not logged in
-@login_required(redirect_field_name='login')
 def home(request):
-    # If the user does a POST method, do the following action
-    if request.method == 'POST':
-        # creating a variable that is equal to request.POST which is the text content, and request.FILES which is the picture
-        form = OrganismForm(request.POST, request.FILES)
-        # This line tells us what user is doing the POST
-        form.instance.user = request.user
-        # https://stackoverflow.com/a/62727319/14263621 --- solution for class based view user model without showing user to customer
-
-        # built in django method --- if form is valid, save it. plural organism is everything from the model
-        if form.is_valid():
-            form.save()
-            plural_organism = Organism.objects.all()
-            # takes the request and renders the images page
-            return render(request, 'natureShareApp/images.html', {'organism_images' : plural_organism})
+    """Display the organism gallery and handle new organism creation for authenticated users."""
+    # Get all organisms for the gallery
+    organisms = Organism.objects.all().order_by('-date')
     
-    # if the request method is not a post, the form will be equal to OrganismForm from our forms.py
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            form = OrganismForm(request.POST, request.FILES)
+            if form.is_valid():
+                organism = form.save(commit=False)
+                organism.user = request.user
+                organism.save()
+                messages.success(request, 'Organism created successfully.')
+                logger.info('Organism %s created by user %s', organism.name, request.user.username)
+                return redirect('organism_images')
+            messages.error(request, 'Please correct the errors below.')
+        else:
+            form = OrganismForm()
     else:
-        form = OrganismForm()
-    # renders the home page with the form again --- essentially refreshing the page if it's not a POST
-    return render(request, 'natureShareApp/home.html', {'form' :  form})
+        form = None
 
-# https://www.geeksforgeeks.org/python-uploading-images-in-django/
+    return render(request, 'natureShareApp/home.html', {'form': form, 'organism_images': organisms})
 
-# view for the page that displays all images --- decorator that requires login and redirects to login field if user is not logged in
-@login_required(redirect_field_name='login')
+
+@login_required(login_url='login')
 def display_images(request):
-    # if the request method is a get, all the organisms in my model are retrieved and displayed on our images.html page
-    if request.method == 'GET':
-        plural_organism = Organism.objects.all()
-        # return render((request, 'natureShareApp/images.html', {'organism_images' : plural_organism}))
-        return render(request, 'natureShareApp/images.html', {'organism_images' : plural_organism})
+    """Render the list of uploaded organism images."""
+    organisms = Organism.objects.all().order_by('-date')
+    return render(request, 'natureShareApp/images.html', {'organism_images': organisms})
 
-# Class based view that renders all the details of an organism on the organism_detail.html
-class OrganismDetailView(generic.DetailView):
+
+class OrganismDetailView(DetailView):
+    """Show full details for a single organism."""
     model = Organism
-    
 
-    def get_context_data(self, *args, **kwargs):
-        GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
-        context = super(OrganismDetailView, self).get_context_data(*args, **kwargs)
-        context['GOOGLE_API_KEY'] = GOOGLE_API_KEY
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['GOOGLE_API_KEY'] = settings.GOOGLE_API_KEY
         return context
-        
 
-# Class based view that allows users to search by ecosystem type and render a list view on search_result.html
+
 class SearchResultsView(ListView):
-    # Specifying the model
+    """Search all organisms by ecosystem or name."""
     model = Organism
-    # Specifying the template to render our object_list
     template_name = 'natureShareApp/search_results.html'
-    
-    # Not sure --- I forgot to save the link from stack overflow
-    def get_queryset(self):
-        # Setting our query using Q that we imported
-        query = self.request.GET.get('q')
-        # our object list filetered to contain ecosystem
-        object_list = Organism.objects.filter(Q(ecosystem__icontains=query))
-        return object_list
 
-class UserSearchResultsView(ListView):
-    # Specifying the model
+    def get_queryset(self):
+        query = self.request.GET.get('q', '').strip()
+        if not query:
+            return Organism.objects.none()
+
+        return Organism.objects.filter(
+            Q(ecosystem__icontains=query) | Q(name__icontains=query)
+        )
+
+
+class UserSearchResultsView(LoginRequiredMixin, ListView):
+    """Search the current user's organisms."""
     model = Organism
-    # Specifying the template to render our object_list
     template_name = 'natureShareApp/user_search_results.html'
-    
-    # Not sure --- I forgot to save the link from stack overflow
-    def get_queryset(self):
-        # Setting our query using Q that we imported
-        query = self.request.GET.get('q')
-        # our object list filetered to contain ecosystem
-        object_list = Organism.objects.filter(Q(user__icontains=query))
-        return object_list
+    login_url = 'login'
 
-# Class based view that allows users to edit their own content
-class OrganismUpdate(UpdateView):
-    # setting the model equal to our organism
+    def get_queryset(self):
+        query = self.request.GET.get('q', '').strip()
+        if not query:
+            return Organism.objects.none()
+
+        return Organism.objects.filter(user=self.request.user).filter(
+            Q(ecosystem__icontains=query) | Q(name__icontains=query)
+        )
+
+
+class OrganismUpdate(LoginRequiredMixin, UpdateView):
+    """Allow a user to edit their own organism record."""
     model = Organism
-    # specifying the fields to be rendered
-    fields = ['name', 'edibility', 'ecosystem', 'weather', 'date', 'location']
-    # Not sure why we need this
+    fields = ['picture', 'name', 'edibility', 'ecosystem', 'weather', 'date', 'location']
     template_name_suffix = '_update_form'
-    # url to go to if successful
-    success_url ="/organism_images"
+    success_url = reverse_lazy('organism_images')
+    login_url = 'login'
 
-    # https://stackoverflow.com/a/8595758/14263621
-    # This function allows users to edit only their own organisms and not others organisms
     def get_queryset(self):
-        # setting the base querys
-        # super is a built in python function
-        base_qs = super(OrganismUpdate, self).get_queryset()
-        return base_qs.filter(user=self.request.user)
+        return super().get_queryset().filter(user=self.request.user)
 
-# Class based view that allows users to delete their own content
-class OrganismDelete(DeleteView):
-    # sets the model equal to organism
+
+class OrganismDelete(LoginRequiredMixin, DeleteView):
+    """Allow a user to delete their own organism record."""
     model = Organism
-    # renders the organism_images url when successfully deleting an organism
-    success_url = '/organism_images'
+    success_url = reverse_lazy('organism_images')
+    login_url = 'login'
 
-    # Allows users to edit their own organisms and not others organisms
     def get_queryset(self):
-        base_qs = super(OrganismDelete, self).get_queryset()
-        return base_qs.filter(user=self.request.user)
+        return super().get_queryset().filter(user=self.request.user)
 
-# function based view that allows users to see their own organisms, redirects to login field if user is not logged in
-@login_required(redirect_field_name='login')
+
+@login_required(login_url='login')
 def user_organisms(request):
-    # filtering organisms by the requesting user
-    organisms = Organism.objects.filter(user = request.user)
-    # rendering the users organisms to user_organisms.html
-    return render(request, 'natureShareApp/user_organisms.html', {'organisms' : organisms})
-    
+    """Show the requesting user's own organisms."""
+    organisms = Organism.objects.filter(user=request.user).order_by('-date')
+    return render(request, 'natureShareApp/user_organisms.html', {'organisms': organisms})
+
+
 def about(request):
+    """Render the about page."""
     return render(request, 'natureShareApp/about.html') 

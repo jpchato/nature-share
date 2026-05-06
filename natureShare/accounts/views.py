@@ -1,35 +1,41 @@
-from django.shortcuts import render, HttpResponse, redirect
-from django.contrib.auth import get_user_model, authenticate, login, logout
-# Create your views here.
+from django.contrib import messages
+from django.contrib.auth import login, logout
+from django.contrib.auth.forms import AuthenticationForm
+from django.shortcuts import render, redirect
 
-User = get_user_model()
+from .forms import UserRegisterForm
+
 
 def user_register(request):
+    """Register a new account using a Django form with validation."""
     if request.method == 'POST':
-        new_user = User(
-            username = request.POST['username'],
-            email = request.POST['email'],
-            first_name = request.POST['first_name'],
-            last_name = request.POST['last_name']
-        )
-        new_user.set_password(request.POST['password'])
-        new_user.save()
-        return redirect('login')
-    return render(request, 'accounts/register.html')
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Account created successfully. You may now log in.')
+            return redirect('login')
+    else:
+        form = UserRegisterForm()
+
+    return render(request, 'accounts/register.html', {'form': form})
+
 
 def user_login(request):
+    """Authenticate a user and create a session."""
     if request.method == 'POST':
-        user = authenticate(
-            request, 
-            username = request.POST['username'],
-            password = request.POST['password']
-        )
-        if user is not None: 
-            login(request, user)
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            login(request, form.get_user())
+            messages.success(request, 'Successfully signed in.')
             return redirect('home')
-    return render(request, 'accounts/login.html')
+    else:
+        form = AuthenticationForm()
+
+    return render(request, 'accounts/login.html', {'form': form})
+
 
 def user_logout(request):
+    """Log out the current user and redirect home."""
     logout(request)
-    # return HttpResponse('youve been logged out')
-    return render(request, 'natureShareApp/home.html')
+    messages.info(request, 'You have been logged out.')
+    return redirect('home')
