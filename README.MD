@@ -1,74 +1,123 @@
-# natureShare
-* An app that allows users to share information about organisms they find in nature.
+# NatureShare
 
-# Motivation
-* This is a project my wife and I came up with the idea that it could help her keep track of where she finds edible mushrooms and other foraging foods in the forests of the PNW.
+A Django-based web application for sharing and tracking information about organisms found in nature. Originally designed to help with foraging activities, such as identifying edible mushrooms and other foods in the Pacific Northwest forests.
 
-# Build Status
-* Currently deployed on Heroku
+## Features
 
-# Code Style
-* Python, JS, vue.js, and Django syntax
+- **User Authentication**: Register, login, and logout functionality with secure account management.
+- **Organism Management**: Upload images and detailed information about organisms, including location, ecosystem, weather, and edibility.
+- **Search Functionality**: Search organisms by ecosystem or name. Users can view all entries but only edit/delete their own.
+- **Geolocation Integration**: Use Google Maps to add latitude/longitude data for precise location tracking.
+- **Social Sharing**: Share organism details to Twitter with a direct link to the detail view.
+- **Responsive Design**: Optimized for both desktop and mobile views.
 
-# Screenshots
-* Desktop View
-* ![natureShare Desktop View](wireframe/natureShare.PNG)
-* Mobile View
-* ![natureShare Mobile View](wireframe/natureShareMobile.PNG)
+## Screenshots
 
-# Features
-* Users are able to upload images and accompanying data relative to the image. 
-* Users can search by ecosystem type. Users can view all organisms but they can only edit and delete their own organisms. 
-* Users can share images to twitter with the organism title and link to the detail view of that organism.
-* Users are able to register accounts to login and logout.
-* Users can use google map to add lat/lon data for image
+### Desktop View
+![NatureShare Desktop View](wireframe/natureShare.PNG)
 
-## Local Setup
-- Create and activate a virtual environment.
-- Install dependencies: `pip install -r natureShare/requirements.txt`
-- Create your env file: `cp natureShare/.env.example natureShare/.env` and fill values.
-- Run the server: `python natureShare/manage.py runserver`
+### Mobile View
+![NatureShare Mobile View](wireframe/natureShareMobile.PNG)
 
-Notes:
-- Do not commit `natureShare/.env` (already gitignored).
-- Generate a new Django secret key: `python -c "from django.core.management.utils import get_random_secret_key as g; print(g())"`
+## Prerequisites
 
-# natureShareApp
-* app that allows CRUD of organisms from django Organism model
+- Python 3.12 or higher
+- pip (Python package installer)
+- Git (for cloning the repository)
 
-# accounts
-* app for creating and managing users
+## Installation
 
-# Reference Links
-### [settings.py:](https://www.geeksforgeeks.org/python-uploading-images-in-django/)
-* Reference link for how I added the ability for users to upload images.
-### [forms.py:](https://stackoverflow.com/a/35968816/14263621)
-* Reference link for how I added classed based views in the views.py
-### [models.py:](https://stackoverflow.com/a/35968816/14263621)
-* Reference link for how I set the default google map coordinates to point to Portland, OR
-### [urls.py in natureShareApp:](https://learndjango.com/tutorials/django-search-tutorial)
-* Reference link for how I created a search bar
-### [views.py in natureShareApp:](https://stackoverflow.com/a/62727319/14263621)
-* Reference link for how I created a classed based view user model without showing the user
-### [views.py in natureShareApp:](https://www.geeksforgeeks.org/python-uploading-images-in-django/)
-* Reference link for how I added the ability for users to upload images. Referenced in multiple files
-### [views.py in natureShareApp:](https://stackoverflow.com/a/8595758/14263621)
-* Reference link for how I added the ability for users to only edit their own organisms and not other users' organisms
-### [organism_detail.html in templates:](https://developers.google.com/maps/documentation/javascript/adding-a-google-map#all)
-* Reference link for how I added google map to my template
-### [organism_detail.html in templates:](https://www.geeksforgeeks.org/how-to-insert-a-javascript-variable-inside-href-attribute/)
-* Reference link for how I manipulated a script tag to use django secret key
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/yourusername/nature-share.git
+   cd nature-share
+   ```
 
+2. **Create and activate a virtual environment**:
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+   ```
 
-# Python Libraries to Install
-* asgiref==3.3.1
-* Django==3.1.4
-* django-geoposition==0.3.0
-* django-location-field==2.1.0
-* Pillow==8.0.1
-* python-dotenv==0.15.0
-    * only used for development to hide keys
-* pytz==2020.4
-* six==1.15.0
-* sqlparse==0.4.1
-* whitenoise==5.2.0
+3. **Install dependencies**:
+   ```bash
+   pip install -r natureShare/requirements.txt
+   ```
+
+4. **Set up environment variables**:
+   ```bash
+   cp .env.example .env
+   ```
+   Edit `.env` with your actual values (see Configuration section below).
+
+5. **Run database migrations**:
+   ```bash
+   cd natureShare
+   python manage.py migrate
+   ```
+
+## Configuration
+
+Create a `.env` file in the root directory based on `.env.example`. Required environment variables:
+
+- `DJANGO_SECRET_KEY`: A unique secret key for Django (generate with `python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"`).
+- `DJANGO_DEBUG`: Set to `True` for development, `False` for production.
+- `DJANGO_ALLOWED_HOSTS`: Comma-separated list of allowed hosts (e.g., `localhost,127.0.0.1,yourdomain.com`).
+- `GOOGLE_API_KEY`: Your Google Maps API key for geolocation features.
+- `DATABASE_URL`: Optional, for database configuration (defaults to SQLite).
+
+**Note**: Never commit your `.env` file to version control. It is already included in `.gitignore`.
+
+## Running Locally
+
+1. **Start the development server**:
+   ```bash
+   python manage.py runserver
+   ```
+
+2. Open your browser and navigate to `http://127.0.0.1:8000`.
+
+3. **Run tests**:
+   ```bash
+   python manage.py test
+   ```
+
+## Project Structure
+
+- `natureShare/`: Main Django project directory.
+  - `natureShareApp/`: Core app for organism CRUD operations.
+  - `accounts/`: App for user authentication and management.
+  - `templates/`: HTML templates.
+  - `static/`: Static files (CSS, JS, images).
+  - `media/`: User-uploaded media files.
+
+## Deployment
+
+The application is configured for deployment on platforms like Heroku or Render. Key considerations:
+
+- Use `gunicorn` as the WSGI server (configured in `Procfile`).
+- Static files are served via WhiteNoise.
+- Environment variables must be set in your deployment platform's settings.
+
+For Heroku deployment:
+1. Create a Heroku app.
+2. Set environment variables in Heroku dashboard.
+3. Push code and run migrations.
+
+## Contributing
+
+1. Fork the repository.
+2. Create a feature branch: `git checkout -b feature/your-feature`.
+3. Commit changes: `git commit -am 'Add your feature'`.
+4. Push to the branch: `git push origin feature/your-feature`.
+5. Submit a pull request.
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+## Acknowledgments
+
+- Built with Django and various open-source libraries.
+- Inspired by foraging and nature observation communities.
+- Special thanks to the contributors and the original project creators.
